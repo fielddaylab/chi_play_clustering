@@ -137,7 +137,7 @@ def readCSVFromPath(path):
     import os
     print(os.getcwd())
     metadata = [f'Import from f{path}']
-    df = pd.read_csv(path, index_col=['sessID', 'num_play'], comment='#')
+    df = pd.read_csv(path, index_col=['player_id','sessID', 'num_play'], comment='#')
     return df, metadata
 
 def getLakelandNov25ClassDF():
