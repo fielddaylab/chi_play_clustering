@@ -1,7 +1,7 @@
 from pathlib import Path
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
-from sklearn.cluster import KMeans,DBSCAN
+from sklearn.cluster import KMeans, DBSCAN
 from sklearn.preprocessing import StandardScaler, RobustScaler, PowerTransformer, Normalizer, FunctionTransformer
 from sklearn.pipeline import make_pipeline
 from sklearn.metrics import silhouette_samples
@@ -10,6 +10,11 @@ import seaborn
 import numpy as np
 import pandas as pd
 from math import pi
+import src.utils as utils
+import src.cluster_utils as cu
+import src.utils as utils
+import os
+
 
 def df_np_df(func):
     def convert_call_reconvert_df(self, df, *args, **kwargs):
@@ -17,27 +22,31 @@ def df_np_df(func):
         nparray, meta = func(self, nparray, *args, **kwargs)
         assert nparray.shape[1] == len(df.columns)
         return pd.DataFrame(nparray, columns=df.columns), meta
+
     return convert_call_reconvert_df
 
+
 class Workflow:
-# fields
+    # fields
     DEFAULT_SCALE = "robust"
-  
-    def __init__(self, savename = None, graph_dir = None):
-        self.meta = []
-        self.savename = savename
-        self.graph_path = graph_dir
-        
+
+    def __init__(self, filter_options, base_output_dir=None, nested_folder_output=True):
+        utils.init_path()
+        self.filter_options = filter_options
+        self._nested_folder_output = nested_folder_output
+        self._base_output_dir = base_output_dir
+
         # flags
         self.verbose: False
-            
+
         # steps
         self.pre_histogram = True
+        self.do_logtransform = None
         self.do_scaling = True
         self.do_normalization = True
         self.post_histogram = True
         self.plot_correlation = True
-        self.do_PCA = True 
+        self.do_PCA = True
         self.plot_scree = True
         self.do_clustering = True
         self.plot_silhouettes = True
@@ -51,21 +60,43 @@ class Workflow:
         self.clustering_count = 4
 
         # viz
-        self.color_dict = {i:v for i,v in enumerate(plt.cm.get_cmap('tab10').colors)}
-        self.histogram = None # not sure what this was meant for...
+        self.color_dict = {i: v for i, v in enumerate(plt.cm.get_cmap('tab10').colors)}
+        self.histogram = None  # not sure what this was meant for...
         self.feature_names = None
-    
-    def get_filename(self):
-        return None #some_string
 
-    def Histogram(self, df: pd.DataFrame, num_bins:int = None, title:str=None, log_scale=True):
+
+    def clustering_abbrev(self):
+        cluster_abbrev = 'k' if self.clustering_method is "KMeans" else self.clustering_method
+        return f'_z{self.filter_options.zthresh}pca{self.pca_dimension_count}{cluster_abbrev}{self.clustering_count}'
+
+    def get_base_output_dir(self):
+        if self._base_output_dir:
+            save_dir = self._base_output_dir
+        else:
+            logtransform = '_logtransform' if self.do_logtransform else ''
+            clustering_suffix = '' if self._nested_folder_output else self.clustering_abbrev()
+            suffix = f'{logtransform}{clustering_suffix}'
+            save_dir = os.path.join('Results',self.filter_options.game.lower().capitalize(), self.filter_options.name+suffix)
+        Path(save_dir).mkdir(parents=True, exist_ok=True)
+        return save_dir
+
+    def get_cluster_output_dir(self):
+        if not self._nested_folder_output:
+            return self.get_base_output_dir()
+        else:
+            return os.path.join(self.get_base_output_dir(), self.clustering_abbrev())
+
+    def get_filename(self):
+        return None  # some_string
+
+    def Histogram(self, df: pd.DataFrame, num_bins: int = None, title: str = None, log_scale=True):
         title = title or 'Histograms'
         num_rows = len(df.index)
         num_bins = num_bins or min(25, num_rows)
 
-        axes = df.plot(kind='hist',subplots=True, figsize=(20,5),bins=num_bins,
-                title=title,layout=(1,len(df.columns)),color='k',sharex=False,
-                sharey=True, logy=log_scale,bottom=1)
+        axes = df.plot(kind='hist', subplots=True, figsize=(20, 5), bins=num_bins,
+                       title=title, layout=(1, len(df.columns)), color='k', sharex=False,
+                       sharey=True, logy=log_scale, bottom=1)
         # for axrow in axes:
         #     for ax in axrow:
         #         print(ax)
@@ -74,13 +105,18 @@ class Workflow:
     def Correlations(self, df, heat_range=0.3):
         seaborn.set(style="ticks")
         corr = df.corr()
-        g = seaborn.heatmap(corr,  vmax=heat_range, center=0,
-                    square=True, linewidths=.5, cbar_kws={"shrink": .5}, annot=True, fmt='.2f', cmap='coolwarm')
+        g = seaborn.heatmap(corr, vmax=heat_range, center=0,
+                            square=True, linewidths=.5, cbar_kws={"shrink": .5}, annot=True, fmt='.2f', cmap='coolwarm')
         seaborn.despine()
-        g.figure.set_size_inches(14,10)
-        
+        g.figure.set_size_inches(14, 10)
+
+
+    def LogTransformed(self, df):
+        return df, []
+        pass
+
     # @df_np_df
-    def Scaled(self, df, scaling_method:str =None):
+    def Scaled(self, df, scaling_method: str = None):
         nparray = df.to_numpy()
         scaling_method = scaling_method or self.scaling_method
         if scaling_method == "Standard":
@@ -88,26 +124,25 @@ class Workflow:
         elif scaling_method == "Robust":
             nparray = StandardScaler().fit_transform(nparray)
         return pd.DataFrame(nparray, columns=df.columns), []
-        
+
     # @df_np_df
     def Normalized(self, df):
         nparray = df.to_numpy()
         nparray = Normalizer().fit_transform(nparray)
         return pd.DataFrame(nparray, columns=df.columns), []
 
-
-    def PCA(self, df, dimension_count:int = None):
+    def PCA(self, df, dimension_count: int = None):
         nparray = df.to_numpy()
         dimension_count = dimension_count or self.pca_dimension_count
         nparray = PCA(n_components=dimension_count).fit_transform(nparray)
-        PCA_names = [f"PCA_{i+1}" for i in range(dimension_count)]
+        PCA_names = [f"PCA_{i + 1}" for i in range(dimension_count)]
         return pd.DataFrame(nparray, columns=PCA_names), []
-      
+
     def Scree(self, df):
         nparray = df.to_numpy()
-        U,S,V = np.linalg.svd(nparray)
-        eigvals = S**2 / np.sum(S**2)
-        fig = plt.figure(figsize=(8,5))
+        U, S, V = np.linalg.svd(nparray)
+        eigvals = S ** 2 / np.sum(S ** 2)
+        fig = plt.figure(figsize=(8, 5))
         singular_vals = np.arange(nparray.shape[1]) + 1
         plt.plot(singular_vals, eigvals, 'ro-', linewidth=2)
         plt.title('Scree Plot')
@@ -115,7 +150,7 @@ class Workflow:
         plt.ylabel('Eigenvalue')
         return
 
-    def Cluster(self, df, cluster_count:int, clustering_method=None):
+    def Cluster(self, df, cluster_count: int, clustering_method=None):
         cluster_count = cluster_count or self.clustering_count
         clustering_method = clustering_method or self.clustering_method
         nparray = df.to_numpy()
@@ -142,7 +177,7 @@ class Workflow:
         # df['PCA1 Offset'] = np.array(distances)[:,0]
         # df['PCA2 Offset'] = np.array(distances)[:,1]
 
-    def Silhouettes(self, dimension_data: pd.DataFrame, labels: pd.DataFrame, title = None):
+    def Silhouettes(self, dimension_data: pd.DataFrame, labels: pd.DataFrame, title=None):
         np_dimensions = dimension_data.to_numpy()
         np_labels = labels.to_numpy().flatten()
         silhouette_vals = silhouette_samples(np_dimensions, np_labels)
@@ -171,58 +206,77 @@ class Workflow:
         ax1.set_title(title, y=1.02)
 
         return
-      
+
     def SaveMeta(self, meta_list):
         print("SaveMeta: Stubbed function!")
         return None, []
 
-    def RunWorkflow(self, df, meta):
-        data = df.copy()
-        new_meta = meta.copy()
-        if self.pre_histogram:
-            self.Histogram(data, title='Pre Normalization Histogram')
-        if self.do_scaling:
-            data, md = self.Scaled(data)
-            new_meta.extend(md)
-        if self.do_normalization:
-            data, md = self.Normalized(data)
-            new_meta.extend(md)
+    def RunWorkflow(self, get_df_func):
+        df, meta = cu.full_filter(get_df_func, self.filter_options)
 
-            self.Histogram(data, title='Post Normalization Histogram')
+        # Preprocessing - LogTransform, Scaling, Normalization #
+        # show df before any processing
+
+        if self.pre_histogram:
+            self.Histogram(df, title='Pre Normalization Histogram')
+        # do log transform
+        if self.do_logtransform:
+            df, md = self.LogTransformed(df)
+            meta.extend(md)
+        # scale df
+        if self.do_scaling:
+            df, md = self.Scaled(df)
+            meta.extend(md)
+        # do normalization
+        if self.do_normalization:
+            df, md = self.Normalized(df)
+            meta.extend(md)
+        # show df after transformation
+        if self.post_histogram:
+            self.Histogram(df, title='Post Transformation Histogram')
+
+        # correlation
         if self.plot_correlation:
-            self.Correlations(data)
-        if self.do_PCA:
-            data, md = self.PCA(data)
-            new_meta.extend(md)
+            self.Correlations(df)
+
+        # scree and PCA
         if self.plot_scree:
-            self.Scree(data)
+            self.Scree(df)
+        if self.do_PCA:
+            df, md = self.PCA(df)
+            meta.extend(md)
+
+        # silhouette and clustering
         if self.do_clustering:
-            column_names=[f"PCA{i}" for i in range(self.pca_dimension_count)]
-            labels, md = self.Cluster(data[column_names], cluster_count=self.clustering_count)
-            new_meta.extend(md)
+            column_names = [f"PCA{i}" for i in range(self.pca_dimension_count)]
+            labels, md = self.Cluster(df[column_names], cluster_count=self.clustering_count)
+            meta.extend(md)
         if self.plot_silhouettes:
-            self.Silhouettes(data, labels)
-        return data, new_meta
+            self.Silhouettes(df, labels)
+
+        return df, meta
+
 
 def add_cluster_features_to_df(pipeline, df, data):
-  pipeline.fit(data)
-  PCA_dims = pipeline[:-1].transform(data)
-  clustering = pipeline[-1]
-  labels = clustering.predict(PCA_dims)
-  distances = []
-  for a,l in zip(PCA_dims, labels):
-    b =  clustering.cluster_centers_[l]
-    distances.append(a-b)
-  df['label'] = labels
-  df['PCA1 Offset'] = np.array(distances)[:,0]
-  df['PCA2 Offset'] = np.array(distances)[:,1]
+    pipeline.fit(data)
+    PCA_dims = pipeline[:-1].transform(data)
+    clustering = pipeline[-1]
+    labels = clustering.predict(PCA_dims)
+    distances = []
+    for a, l in zip(PCA_dims, labels):
+        b = clustering.cluster_centers_[l]
+        distances.append(a - b)
+    df['label'] = labels
+    df['PCA1 Offset'] = np.array(distances)[:, 0]
+    df['PCA2 Offset'] = np.array(distances)[:, 1]
 
 
 def main():
-    import src.utils as utils
     utils.init_path()
-    import src.cluster_utils as cu
-    import src.utils as utils
+    test_on_1125_data()
+
+
+def test_on_1125_data():
     base_dir = r'Results/Lakeland/1125_Clusters'
     for options, pca_dims, k in [(cu.options.lakeland_feedback_lv01, 3, 7),
                                  (cu.options.lakeland_player_lvl01, 3, 6),
@@ -240,6 +294,7 @@ def main():
         df.to_csv(f'{save_dir}/clusters.csv')
         print(f'Saved: {save_dir}/clusters.csv')
     pass
+
 
 if __name__ == '__main__':
     main()
