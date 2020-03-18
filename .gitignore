@@ -1,0 +1,9 @@
+/.idea
+__pycache__/
+/Data
+*.jpg
+*.gdoc
+*.ini
+.DS_Store
+.vscode/
+/Results
