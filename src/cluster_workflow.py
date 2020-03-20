@@ -69,14 +69,14 @@ class Workflow:
 
     def clustering_abbrev(self):
         cluster_abbrev = 'k' if self.clustering_method is "KMeans" else self.clustering_method
-        return f'_z{self.filter_options.zthresh}pca{self.pca_dimension_count}{cluster_abbrev}{self.clustering_count}'
+        return f'z{self.filter_options.zthresh}pca{self.pca_dimension_count}{cluster_abbrev}{self.clustering_count}'
 
     def get_base_output_dir(self):
         if self._base_output_dir:
             save_dir = self._base_output_dir
         else:
             logtransform = '_logtransform' if self.do_logtransform else ''
-            clustering_suffix = '' if self._nested_folder_output else self.clustering_abbrev()
+            clustering_suffix = '' if self._nested_folder_output else '_'+ self.clustering_abbrev()
             suffix = f'{logtransform}{clustering_suffix}'
             save_dir = os.path.join('Results',self.filter_options.game.lower().capitalize(), self.filter_options.name+suffix)
         Path(save_dir).mkdir(parents=True, exist_ok=True)
@@ -84,9 +84,11 @@ class Workflow:
 
     def get_cluster_output_dir(self):
         if not self._nested_folder_output:
-            return self.get_base_output_dir()
+            save_dir = self.get_base_output_dir()
         else:
-            return os.path.join(self.get_base_output_dir(), self.clustering_abbrev())
+            save_dir = os.path.join(self.get_base_output_dir(), self.clustering_abbrev())
+        Path(save_dir).mkdir(parents=True, exist_ok=True)
+        return save_dir
 
     def get_filename(self):
         return None  # some_string
@@ -123,33 +125,45 @@ class Workflow:
             g.figure.savefig(savepath)
 
     def LogTransformed(self, df):
+        meta = []
         nparray = df.to_numpy()
         nparray = np.log1p(nparray)
-        return pd.DataFrame(nparray, columns=df.columns), []
+        meta.append('LogTransform using np.long1p')
+        return pd.DataFrame(nparray, columns=df.columns), meta
         pass
 
     # @df_np_df
     def Scaled(self, df, scaling_method: str = None):
+        meta = []
         nparray = df.to_numpy()
         scaling_method = scaling_method or self.scaling_method
         if scaling_method == "Standard":
-            nparray = RobustScaler().fit_transform(nparray)
+            scaler = StandardScaler()
+
         elif scaling_method == "Robust":
-            nparray = StandardScaler().fit_transform(nparray)
-        return pd.DataFrame(nparray, columns=df.columns), []
+            scaler = RobustScaler()
+        meta.append(f'Scaled with scikitlearn {scaler}' )
+        nparray = scaler.fit_transform(nparray)
+        return pd.DataFrame(nparray, columns=df.columns), meta
 
     # @df_np_df
     def Normalized(self, df):
+        meta = []
         nparray = df.to_numpy()
-        nparray = Normalizer().fit_transform(nparray)
-        return pd.DataFrame(nparray, columns=df.columns), []
+        normalizer = Normalizer()
+        meta.append(f'Normalized with scikitlearn {normalizer}')
+        nparray = normalizer.fit_transform(nparray)
+        return pd.DataFrame(nparray, columns=df.columns), meta
 
     def PCA(self, df, dimension_count: int = None):
+        meta = []
         nparray = df.to_numpy()
         dimension_count = dimension_count or self.pca_dimension_count
-        nparray = PCA(n_components=dimension_count).fit_transform(nparray)
+        pca = PCA(n_components=dimension_count)
+        meta.append(f'PCA df calculated with scikitlearn {pca}')
+        nparray = pca.fit_transform(nparray)
         PCA_names = [f"PCA_{i}" for i in range(dimension_count)]
-        return pd.DataFrame(nparray, columns=PCA_names), []
+        return pd.DataFrame(nparray, columns=PCA_names), meta
 
     def Scree(self, df, save=True):
         nparray = df.to_numpy()
@@ -169,13 +183,13 @@ class Workflow:
         return
 
     def Cluster(self, df, cluster_count: int, clustering_method=None):
+        meta = []
         cluster_count = cluster_count or self.clustering_count
         clustering_method = clustering_method or self.clustering_method
         nparray = df.to_numpy()
 
         if clustering_method == "KMeans":
             clusterer = KMeans(n_clusters=cluster_count)
-            labels = clusterer.fit_predict(nparray)
             # For future, include calculated distances.
             # In the future, this will let us find centers:
             # distances = clusterer.transform(nparray)
@@ -183,10 +197,12 @@ class Workflow:
         # elif clustering_method == "FuzzyCMeans":
         #     pass
         elif clustering_method == "DBSCAN":
-            labels = DBSCAN(eps=0.3, min_samples=10).fit_predict(nparray)
+            clusterer = DBSCAN(eps=0.3, min_samples=10)
         else:
-            labels = []
-        return labels,[]
+            return [], meta
+        labels = clusterer.fit_predict(nparray)
+        meta.append(f'Labels calculated via clusterer: {clusterer}')
+        return labels, meta
 
         # for a,l in zip(PCA_dims, labels):
         #     b =  clustering.cluster_centers_[l]
@@ -239,7 +255,7 @@ class Workflow:
                 axs[x, y].set_ylabel(df.columns[y])
         title = 'Scatter'
         if save:
-            savepath = os.path.join(self.get_base_output_dir(), f'{title}.png')
+            savepath = os.path.join(self.get_cluster_output_dir(), f'{title}.png')
             plt.savefig(savepath)
 
     def radarCharts(self, df, labels, save=True):
@@ -272,10 +288,9 @@ class Workflow:
             elif '%' in var:
                 plt.yticks(range(0, 1000, 100), color="grey", size=7)
                 plt.ylim(0, 400)
-            values = list(tdf.iloc[i, :-3])
+            values = list(tdf.iloc[i, :])
             values += values[:1]
             graph_name = tdf.index[i]
-            print(angles, values)
             ax.plot(angles, values, color=color, linewidth=2, linestyle='solid')
             ax.fill(angles, values, color=color, alpha=0.4)
             plt.title(graph_name + f' (n={len(cluster_dict[i])})', size=11, color=color, y=1.1)
@@ -297,51 +312,69 @@ class Workflow:
                 make_spider(self.color_dict[i], i)
             fig.subplots_adjust(wspace=0.4)
             if save:
-                plt.savefig(f'{self.get_cluster_output_dir()}/radar_{var}.png')
+                plt.savefig(os.path.join(self.get_cluster_output_dir(),f'radar_{var}.png'))
         pass
 
-    def SaveMeta(self, meta_list):
-        print("SaveMeta: Stubbed function!")
+    def save_csv_and_meta(self, df, meta_list, save_dir, csv_name, meta_name=None, permissions='w+'):
+        if csv_name.endswith(('.tsv', '.csv')):
+            extension = csv_name[-4:]
+            csv_name = csv_name[:-4]
+        else:
+            extension = '.csv'
+        separator = '\t' if extension == '.tsv' else ','
+        meta_name = meta_name or csv_name+ '_meta.txt'
+        meta_text = 'Metadata:\n'+'\n'.join(meta_list)
+        with open(os.path.join(save_dir, meta_name), permissions) as f:
+            f.write(meta_text)
+        with open(os.path.join(save_dir, csv_name)+extension, permissions) as f:
+            for l in meta_text.splitlines():
+                f.write(f'# {l}\n')
+            f.write('\n')
+            df.to_csv(f, sep=separator)
+
         return None, []
 
     def RunWorkflow(self, get_df_func):
         original_df, meta = cu.full_filter(get_df_func, self.filter_options)
-        df = original_df.copy()
-        original_cols = list(df.columns)
+        self.save_csv_and_meta(original_df, meta, self.get_base_output_dir(), 'filtered_data')
+        working_df = original_df.copy()
+        original_cols = list(working_df.columns)
         # Preprocessing - LogTransform, Scaling, Normalization #
-        # show df before any processing
+        # show working_df before any processing
 
         if self.pre_histogram:
-            self.Histogram(df, title='Raw Histogram')
+            self.Histogram(working_df, title='Raw Histogram')
         # do log transform
         if self.do_logtransform:
-            df, md = self.LogTransformed(df)
+            working_df, md = self.LogTransformed(working_df)
             meta.extend(md)
-        # scale df
+        # scale working_df
         if self.do_scaling:
-            df, md = self.Scaled(df)
+            working_df, md = self.Scaled(working_df)
             meta.extend(md)
         # do normalization
         if self.do_normalization:
-            df, md = self.Normalized(df)
+            working_df, md = self.Normalized(working_df)
             meta.extend(md)
-        # show df after transformation
+        # show working_df after transformation
         if self.post_histogram:
-            self.Histogram(df, title='Preprocessed Histogram')
+            self.Histogram(working_df, title='Preprocessed Histogram')
 
         # correlation
         if self.plot_correlation:
-            self.Correlations(df)
+            self.Correlations(working_df)
 
         # scree and PCA
         if self.plot_scree:
-            self.Scree(df)
+            self.Scree(working_df)
         if self.do_PCA:
-            pca_df, md = self.PCA(df)
+            pca_df, md = self.PCA(working_df)
             meta.extend(md)
             cluster_df = pca_df
+            meta.append('Cluster on PCA dims')
         else:
-            cluster_df = df
+            cluster_df = working_df
+            meta.append('Cluster on non-PCA dims')
 
         # silhouette and clustering
         if self.do_clustering:
@@ -351,12 +384,15 @@ class Workflow:
             if self.plot_silhouettes:
                 self.Silhouettes(cluster_df, labels)
             if self.plot_cluster_scatter:
-                self.scatter(df, labels)
+                self.scatter(working_df, labels)
 
             if self.plot_radars:
                 self.radarCharts(original_df, labels)
+            self.save_csv_and_meta(cluster_df, meta, self.get_cluster_output_dir(), 'data_clustered_on')
+            original_df['label'] = labels
+            self.save_csv_and_meta(original_df, meta, self.get_cluster_output_dir(), 'clusters')
 
-        return df, meta
+        return working_df, meta
 
 
 
@@ -379,7 +415,6 @@ def main():
     utils.init_path()
     # test_on_1125_data()
     w = Workflow(cu.options.lakeland_achs_achs_per_sess_second_sessDur, r'G:\My Drive\Field Day\Research and Writing Projects\2020 CHI Play - Lakeland Clustering\Jupyter\Results\Lakeland\test')
-    w.plot_silhouettes, w.plot_cluster_scatter = False,False
     w.RunWorkflow(cu.getDecJanLogDF)
 
 
