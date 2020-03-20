@@ -368,6 +368,12 @@ class Workflow:
         if self.plot_scree:
             self.Scree(working_df)
         if self.do_PCA:
+            while self.pca_dimension_count is None:
+                inp = input('pca dims? ')
+                try:
+                    self.pca_dimension_count = int(inp.strip())
+                except:
+                    pass
             pca_df, md = self.PCA(working_df)
             meta.extend(md)
             cluster_df = pca_df
@@ -378,6 +384,12 @@ class Workflow:
 
         # silhouette and clustering
         if self.do_clustering:
+            while self.clustering_count is None:
+                inp = input('k? ')
+                try:
+                    self.clustering_count = int(inp.strip())
+                except:
+                    pass
             labels, md = self.Cluster(cluster_df, cluster_count=self.clustering_count)
             meta.extend(md)
 
