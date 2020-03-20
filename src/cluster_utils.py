@@ -152,9 +152,9 @@ def getDecJanLogDF():
     # get the data
     metadata = []
     zipfile_dec, meta = openZipFromURL(_proc_zip_url_dec)
-    metadata.append(meta)
+    metadata.extend(meta)
     zipfile_jan, meta = openZipFromPath(_proc_zip_path_jan)
-    metadata.append(meta)
+    metadata.extend(meta)
     # put the data into a dataframe
     df = pd.DataFrame()
     for zf in [zipfile_dec, zipfile_jan]:
@@ -171,9 +171,9 @@ def getWavesDecJanLogDF():
     # get the data
     metadata = []
     zipfile_dec, meta = openZipFromPath(_proc_zip_path_dec)
-    metadata.append(meta)
+    metadata.extend(meta)
     zipfile_jan, meta = openZipFromPath(_proc_zip_path_jan)
-    metadata.append(meta)
+    metadata.extend(meta)
     # put the data into a dataframe
     df = pd.DataFrame()
     for zf in [zipfile_dec, zipfile_jan]:
@@ -189,9 +189,9 @@ def getCrystalDecJanLogDF():
     # get the data
     metadata = []
     zipfile_dec, meta = openZipFromPath(_proc_zip_path_dec)
-    metadata.append(meta)
+    metadata.extend(meta)
     zipfile_jan, meta = openZipFromPath(_proc_zip_path_jan)
-    metadata.append(meta)
+    metadata.extend(meta)
     # put the data into a dataframe
     df = pd.DataFrame()
     for zf in [zipfile_dec, zipfile_jan]:
