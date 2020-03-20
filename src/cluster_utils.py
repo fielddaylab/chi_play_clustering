@@ -175,7 +175,7 @@ def getLakelandNov25ClassDF():
 
 
 # consider making a general version with parameter for filename, index columns
-def getDecJanLogDF():
+def getLakelandDecJanLogDF():
     # define paths for DecJanLog
     _proc_zip_url_dec = 'https://github.com/fielddaylab/opengamedata/blob/master/jupyter/lakeland_data/LAKELAND_20191201_to_20191231_b2cf46d_proc.zip?raw=true'
     _proc_zip_path_jan = 'Data/Raw Log Data/LAKELAND_20200101_to_20200131_a9720c1_proc.zip'
@@ -233,34 +233,43 @@ def getCrystalDecJanLogDF():
     return df, metadata
 
 
-# split out query creation per-game
-def filter_df(df, fillna=0, query_list=None, only_query_list=False, lvlstart=None, lvlend=None, no_debug=True,
+def get_lakeland_default_filter(lvlstart=None, lvlend=None, no_debug=True,
               min_sessActiveEventCount=10,
               min_lvlstart_ActiveEventCount=3,
-              min_lvlend_ActiveEventCount=3, min_sessDuration=300, max_sessDuration=None, cont=False, one_query=False,
-              verbose=True):
+              min_lvlend_ActiveEventCount=3, min_sessDuration=300, max_sessDuration=None, cont=False, one_query=False):
+    query_list = []
+
+
+    if no_debug:
+        query_list.append('debug == 0')
+    if min_sessActiveEventCount is not None:
+        query_list.append(f'sess_ActiveEventCount >= {min_sessActiveEventCount}')
+    if lvlstart is not None and min_lvlstart_ActiveEventCount is not None:
+        query_list.append(f'lvl{lvlstart}_ActiveEventCount >= {min_lvlstart_ActiveEventCount}')
+    if lvlend is not None and min_lvlend_ActiveEventCount is not None:
+        query_list.append(f'lvl{lvlend}_ActiveEventCount >= {min_lvlend_ActiveEventCount}')
+    if min_sessDuration is not None:
+        query_list.append(f'sessDuration >= {min_sessDuration}')
+    if max_sessDuration is not None:
+        query_list.append(f'sessDuration <= {max_sessDuration}')
+    if cont is not None:
+        query_list.append(f'_continue == {int(cont)}')
+
+    return query_list
+
+def get_crystal_default_filter():
+    return []
+
+def get_waves_default_filter():
+    return []
+
+
+# split out query creation per-game
+def filter_df(df, query_list, one_query=False, fillna=0, verbose=True):
+    df = df.rename({'continue': '_continue'}, axis=1)
     filter_args = locals()
     filter_args.pop('df')
     filter_meta = [f'*arg* filter_args = {filter_args}']
-    custom_queries = query_list or []
-    query_list = []
-    if not only_query_list:
-        if no_debug:
-            query_list.append('debug == 0')
-        if min_sessActiveEventCount is not None:
-            query_list.append(f'sess_ActiveEventCount >= {min_sessActiveEventCount}')
-        if lvlstart is not None and min_lvlstart_ActiveEventCount is not None:
-            query_list.append(f'lvl{lvlstart}_ActiveEventCount >= {min_lvlstart_ActiveEventCount}')
-        if lvlend is not None and min_lvlend_ActiveEventCount is not None:
-            query_list.append(f'lvl{lvlend}_ActiveEventCount >= {min_lvlend_ActiveEventCount}')
-        if min_sessDuration is not None:
-            query_list.append(f'sessDuration >= {min_sessDuration}')
-        if max_sessDuration is not None:
-            query_list.append(f'sessDuration <= {max_sessDuration}')
-        if cont is not None:
-            df = df.rename({'continue': '_continue'}, axis=1)
-            query_list.append(f'_continue == {int(cont)}')
-    query_list.extend(custom_queries)
 
     def append_meta_str(q, shape):
         outstr = f'Query: {q}, output_shape: {shape}'
@@ -286,10 +295,10 @@ def filter_df(df, fillna=0, query_list=None, only_query_list=False, lvlstart=Non
     return df.rename({'_continue': 'continue'}), filter_meta
 
 
-def create_new_base_features(df, verbose=False, avg_tile_hover_lvl_range=None):
-    filter_args = locals()
-    filter_args.pop('df')
-    new_feat_meta = [f'*arg* new_feat_args = {filter_args}']
+def create_new_base_features_lakeland(df, verbose=False, avg_tile_hover_lvl_range=None):
+    new_base_feature_args = locals()
+    new_base_feature_args.pop('df')
+    new_feat_meta = [f'*arg* new_feat_args = {new_base_feature_args}']
     items = ['home', 'food', 'farm', 'fertilizer', 'livestock', 'skimmer', 'sign', 'road']
     # player hover, buy aggregate features
     if verbose:
@@ -323,6 +332,21 @@ def create_new_base_features(df, verbose=False, avg_tile_hover_lvl_range=None):
     df['count_bloom_achs'] = df[[time_to_ach(ach) for ach in bloom_achs]].astype(bool).sum(axis=1)
     for ach_type in ['pop', 'farm', 'money', 'bloom']:
         df[f'{ach_type}_achs_per_sess_second'] = df[f'count_{ach_type}_achs'] / df['sessDuration']
+
+    return df, new_feat_meta
+
+def create_new_base_features_waves(df, verbose=False):
+    new_base_feature_args = locals()
+    new_base_feature_args.pop('df')
+    new_feat_meta = [f'*arg* new_feat_args = {new_base_feature_args}']
+
+    return df, new_feat_meta
+
+
+def create_new_base_features_crystal(df, verbose=False):
+    new_base_feature_args = locals()
+    new_base_feature_args.pop('df')
+    new_feat_meta = [f'*arg* new_feat_args = {new_base_feature_args}']
 
     return df, new_feat_meta
 

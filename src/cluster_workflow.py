@@ -427,7 +427,7 @@ def main():
     utils.init_path()
     # test_on_1125_data()
     w = Workflow(cu.options.lakeland_achs_achs_per_sess_second_sessDur, r'G:\My Drive\Field Day\Research and Writing Projects\2020 CHI Play - Lakeland Clustering\Jupyter\Results\Lakeland\test')
-    w.RunWorkflow(cu.getDecJanLogDF)
+    w.RunWorkflow(cu.getLakelandDecJanLogDF)
 
 
 def test_on_1125_data():
