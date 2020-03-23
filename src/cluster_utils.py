@@ -38,8 +38,8 @@ class options:
     options = namedtuple('Options',
                          ['game', 'name', 'filter_args', 'new_feat_args', 'lvlfeats', 'lvlrange', 'finalfeats',
                           'zthresh', 'finalfeats_readable'])
-    lakeland_player_lvl0 = options('lakeland',
-                                   'player_lvl0',
+    lakeland_actions_lvl0 = options('lakeland',
+                                   'actions_lvl0',
                                    {'query_list': ['sess_avg_num_tiles_hovered_before_placing_home > 1'],
                                     'verbose': False,
                                     'fillna': 0},
@@ -54,8 +54,8 @@ class options:
                                    3,
                                    ['hovers\nbefore\nfarm', 'home', 'farm', 'livestock', 'buys']
                                    )
-    lakeland_player_lvl01 = options('lakeland',
-                                    'player_lvl01',
+    lakeland_actions_lvl01 = options('lakeland',
+                                    'actions_lvl01',
                                     {'query_list': ['sess_avg_num_tiles_hovered_before_placing_home > 1'],
                                      'verbose': False,
                                      'fillna': 0},
@@ -70,8 +70,8 @@ class options:
                                     3,
                                     ['hovers\nbefore\nfarm', 'home', 'farm', 'livestock', 'buys']
                                     )
-    lakeland_player_lvl0_only_rain = options('lakeland',
-                                             'player_lvl0_only_rain',
+    lakeland_actions_lvl0_only_rain = options('lakeland',
+                                             'actions_lvl0_only_rain',
                                              {'query_list': ['sess_avg_num_tiles_hovered_before_placing_home > 1'],
                                               'verbose': False,
                                               'fillna': 0},
