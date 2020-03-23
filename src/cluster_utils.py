@@ -24,12 +24,11 @@ from zipfile import ZipFile
 import pandas as pd
 import urllib.request
 from io import BytesIO
-import utils
+import src.utils as utils
 import ipywidgets as widgets
 from collections import namedtuple
 import numpy as np
 from scipy import stats
-import utils
 
 
 
