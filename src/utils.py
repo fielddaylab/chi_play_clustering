@@ -136,10 +136,7 @@ import os
 
 def init_path():
     import src.settings
-    JUPYTER_DIR = os.path.join(src.settings.FIELDDAY_DIR,
-                               'Research and Writing Projects/2020 CHI Play - Lakeland Clustering/Jupyter')
-    os.chdir(JUPYTER_DIR)
-    # print(f'---\nCWD: {os.getcwd()}')
+    os.chdir(src.settings.BASE_DIR)
 
 
 if __name__ == '__main__':

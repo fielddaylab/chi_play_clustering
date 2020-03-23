@@ -73,7 +73,7 @@ def getLakelandNov25ClassDF():
 # consider making a general version with parameter for filename, index columns
 def getLakelandDecJanLogDF():
     # define paths for DecJanLog
-    _proc_zip_url_dec = 'https://github.com/fielddaylab/opengamedata/blob/master/jupyter/lakeland_data/LAKELAND_20191201_to_20191231_b2cf46d_proc.zip?raw=true'
+    _proc_zip_url_dec = 'https://opengamedata.fielddaylab.wisc.edu/data/LAKELAND/LAKELAND_20191201_to_20191231_de09c18_proc.zip'
     _proc_zip_path_jan = 'Data/Raw Log Data/LAKELAND_20200101_to_20200131_a9720c1_proc.zip'
     # get the data
     metadata = []
@@ -85,7 +85,7 @@ def getLakelandDecJanLogDF():
     df = pd.DataFrame()
     for zf in [zipfile_dec, zipfile_jan]:
         with zf.open(zf.namelist()[0]) as f:
-            df = pd.concat([df, pd.read_csv(f, index_col=['sessID', 'num_play'], comment='#')])
+            df = pd.concat([df, pd.read_csv(f, index_col=['sessID', 'num_play'], comment='#')], sort=True)
     df['sessID'] = [x[0] for x in df.index]
     df['num_play'] = [x[1] for x in df.index]
     return df, metadata
@@ -93,38 +93,38 @@ def getLakelandDecJanLogDF():
 
 def getWavesDecJanLogDF():
     # define paths for DecJanLog
-    _proc_zip_path_dec = 'Data/Raw Log Data/WAVES_20191201_to_20191231_de09c18_proc.zip'
-    _proc_zip_path_jan = 'Data/Raw Log Data/WAVES_20200101_to_20200131_de09c18_proc.zip'
+    _proc_zip_path_dec = 'https://opengamedata.fielddaylab.wisc.edu/data/WAVES/WAVES_20191201_to_20191231_de09c18_proc.zip'
+    _proc_zip_path_jan = 'https://opengamedata.fielddaylab.wisc.edu/data/WAVES/WAVES_20200101_to_20200131_de09c18_proc.zip'
     # get the data
     metadata = []
-    zipfile_dec, meta = openZipFromPath(_proc_zip_path_dec)
+    zipfile_dec, meta = openZipFromURL(_proc_zip_path_dec)
     metadata.extend(meta)
-    zipfile_jan, meta = openZipFromPath(_proc_zip_path_jan)
+    zipfile_jan, meta = openZipFromURL(_proc_zip_path_jan)
     metadata.extend(meta)
     # put the data into a dataframe
     df = pd.DataFrame()
     for zf in [zipfile_dec, zipfile_jan]:
         with zf.open(zf.namelist()[0]) as f:
-            df = pd.concat([df, pd.read_csv(f, index_col=['sessionID'], comment='#')])
+            df = pd.concat([df, pd.read_csv(f, index_col=['sessionID'], comment='#')], sort=True)
     df['sessionID'] = [x for x in df.index]
     return df, metadata
 
 
 def getCrystalDecJanLogDF():
     # define paths for DecJanLog
-    _proc_zip_path_dec = 'Data/Raw Log Data/CRYSTAL_20191201_to_20191231_de09c18_proc.zip'
-    _proc_zip_path_jan = 'Data/Raw Log Data/CRYSTAL_20200101_to_20200131_de09c18_proc.zip'
+    _proc_zip_path_dec = 'https://opengamedata.fielddaylab.wisc.edu/data/CRYSTAL/CRYSTAL_20191201_to_20191231_de09c18_proc.zip'
+    _proc_zip_path_jan = 'https://opengamedata.fielddaylab.wisc.edu/data/CRYSTAL/CRYSTAL_20200101_to_20200131_de09c18_proc.zip'
     # get the data
     metadata = []
-    zipfile_dec, meta = openZipFromPath(_proc_zip_path_dec)
+    zipfile_dec, meta = openZipFromURL(_proc_zip_path_dec)
     metadata.extend(meta)
-    zipfile_jan, meta = openZipFromPath(_proc_zip_path_jan)
+    zipfile_jan, meta = openZipFromURL(_proc_zip_path_jan)
     metadata.extend(meta)
     # put the data into a dataframe
     df = pd.DataFrame()
     for zf in [zipfile_dec, zipfile_jan]:
         with zf.open(zf.namelist()[0]) as f:
-            df = pd.concat([df, pd.read_csv(f, index_col=['sessionID'], comment='#')])
+            df = pd.concat([df, pd.read_csv(f, index_col=['sessionID'], comment='#')], sort=True)
     df['sessionID'] = [x for x in df.index]
     return df, metadata
 
@@ -247,7 +247,7 @@ def create_new_base_features_crystal(df, verbose=False):
     return df, new_feat_meta
 
 
-def describe_lvl_feats(df, fbase_list, lvl_range, level_time=300, level_overlap=30):
+def describe_lvl_feats_lakeland(df, fbase_list, lvl_range, level_time=300, level_overlap=30):
     """
 
     :param df: dataframe to pull from and append to
@@ -275,38 +275,94 @@ def describe_lvl_feats(df, fbase_list, lvl_range, level_time=300, level_overlap=
         df[avg_prefix + fn] = tdf.mean(axis=1)
     return df, metadata
 
+def describe_lvl_feats_crystal(df, fbase_list, lvl_range):
+    """
 
-def get_feat_selection(df, rows=15, width='350px', filter_cols=lambda f: True, max_lvl=9):
-    # lvl_feat_widget = widgets.SelectMultiple(
-    #     options=sorted(set(f[5:] for f in df.columns if f.startswith('lvl') and filter_cols(f))),
-    #     value=[],
-    #     rows=rows,
-    #     description='lvl feats',
-    #     disabled=False,
-    #     layout=widgets.Layout(width=width)
-    # )
-    # sess_feat_widget = widgets.SelectMultiple(
-    #     options=sorted(set(f[5:] for f in df.columns if f.startswith('sess_') and filter_cols(f))),
-    #     value=[],
-    #     rows=rows,
-    #     description='sess feats',
-    #     disabled=False,
-    #     layout=widgets.Layout(width=width)
-    # )
-    # other_feat_widget = widgets.SelectMultiple(
-    #     options=sorted(set([f for f in df.columns if not f.startswith('sess_') and not f.startswith('lvl') and filter_cols(f)])),
-    #     value=[],
-    #     rows=rows,
-    #     description='other feats',
-    #     disabled=False,
-    #     layout=widgets.Layout(width=width)
-    # )
+    :param df: dataframe to pull from and append to
+    :param fbase_list: list of features to sum
+    :param fbase: the name of the feature without lvlN_
+    :param fromlvl: starting level to sum
+    :param tolvl: final level to sum
+    """
+    metadata = []
+    metadata.append(f'*arg* lvlfeats = {fbase_list}')
+    metadata.append(f'*arg* lvlrange = {lvl_range}')
+    if not fbase_list:
+        return df, metadata
 
-    # start_level = widgets.IntSlider(value=0,min=0,max=max_lvl,step=1,description='Start Level:',
-    #     disabled=False,continuous_update=False,orientation='horizontal',readout=True,readout_format='d')
-    # end_level = widgets.IntSlider(value=0,min=0,max=max_lvl,step=1,description='End Level:',
-    #     disabled=False,continuous_update=False,orientation='horizontal',readout=True,readout_format='d')
-    # level_selection = widgets.GridBox([start_level, end_level])
+    # TODO: Add filter for levels we don't want, like the one from lakeland
+    # query = f'sessDuration > {(level_time - level_overlap) * (lvl_end) + level_time}'
+    # df = df.query(query)
+    # metadata.append(
+    #     f'Describe Level Feats lvls {lvl_start} to {lvl_end}. Assuming WINDOW_SIZE_SECONDS={level_time} and WINDOW_OVERLAP_SECONDS={level_overlap}, filtered by ({query})')
+
+    fromlvl, tolvl = lvl_range[0], lvl_range[-1]
+    sum_prefix = f'sum_lvl_{fromlvl}_to_{tolvl}_'
+    avg_prefix = f'avg_lvl_{fromlvl}_to_{tolvl}_'
+    for fn in fbase_list:
+        tdf = df[[f'lvl{i}_{fn}' for i in lvl_range]].fillna(0)
+        df[sum_prefix + fn] = tdf.sum(axis=1)
+        df[avg_prefix + fn] = tdf.mean(axis=1)
+    return df, metadata
+
+def describe_lvl_feats_waves(df, fbase_list, lvl_range):
+    """
+
+    :param df: dataframe to pull from and append to
+    :param fbase_list: list of features to sum
+    :param fbase: the name of the feature without lvlN_
+    :param fromlvl: starting level to sum
+    :param tolvl: final level to sum
+    """
+    metadata = []
+    metadata.append(f'*arg* lvlfeats = {fbase_list}')
+    metadata.append(f'*arg* lvlrange = {lvl_range}')
+    if not fbase_list:
+        return df, metadata
+    lvl_start, lvl_end = lvl_range[0], lvl_range[-1]
+    # TODO: Add filter for levels we don't want, like the one from lakeland
+    # query = f'sessDuration > {(level_time - level_overlap) * (lvl_end) + level_time}'
+    # df = df.query(query)
+    # metadata.append(
+    #     f'Describe Level Feats lvls {lvl_start} to {lvl_end}. Assuming WINDOW_SIZE_SECONDS={level_time} and WINDOW_OVERLAP_SECONDS={level_overlap}, filtered by ({query})')
+    fromlvl, tolvl = lvl_range[0], lvl_range[-1]
+    sum_prefix = f'sum_lvl_{fromlvl}_to_{tolvl}_'
+    avg_prefix = f'avg_lvl_{fromlvl}_to_{tolvl}_'
+    for fn in fbase_list:
+        tdf = df[[f'lvl{i}_{fn}' for i in lvl_range]].fillna(0)
+        df[sum_prefix + fn] = tdf.sum(axis=1)
+        df[avg_prefix + fn] = tdf.mean(axis=1)
+    return df, metadata
+
+
+
+def get_feat_selection_lakeland(df, rows=15,width='350px',filter_cols=lambda f: True, max_lvl=9):
+
+    start_level = widgets.IntSlider(value=0,min=0,max=max_lvl,step=1,description='Start Level:',
+                                    disabled=False,continuous_update=False,orientation='horizontal',readout=True,readout_format='d')
+    end_level = widgets.IntSlider(value=0,min=0,max=max_lvl,step=1,description='End Level:',
+                                  disabled=False,continuous_update=False,orientation='horizontal',readout=True,readout_format='d')
+    level_selection = widgets.GridBox([start_level, end_level])
+
+    def change_start_level(change):
+        end_level.min = start_level.value
+        if end_level.value < start_level.value:
+            end_level.value = start_level.value
+    start_level.observe(change_start_level, names="value")
+
+
+    lvl_feats = sorted(set([f[5:] for f in df.columns if f.startswith('lvl')]))
+    sess_feats = sorted(set([f[5:] for f in df.columns if f.startswith('sess_')]))
+    other_feats = sorted(set([f for f in df.columns if not f.startswith('lvl') and not f.startswith('sess_')]))
+    selection_widget = widgets.GridBox([multi_checkbox_widget(lvl_feats,'lvl'),
+                                        multi_checkbox_widget(sess_feats,'sess'),
+                                        multi_checkbox_widget(other_feats,'other'),
+                                        level_selection],
+                                       layout=widgets.Layout(grid_template_columns=f"repeat(3, 500px)"))
+
+    return selection_widget
+
+def get_feat_selection_crystal(df, rows=15, width='350px', filter_cols=lambda f: True, max_lvl=8):
 
     start_level = widgets.IntSlider(value=0, min=0, max=max_lvl, step=1, description='Start Level:',
                                     disabled=False, continuous_update=False, orientation='horizontal', readout=True,
@@ -322,9 +378,38 @@ def get_feat_selection(df, rows=15, width='350px', filter_cols=lambda f: True, m
             end_level.value = start_level.value
 
     start_level.observe(change_start_level, names="value")
+
     lvl_feats = sorted(set([f[5:] for f in df.columns if f.startswith('lvl')]))
-    sess_feats = sorted(set([f[5:] for f in df.columns if f.startswith('sess_')]))
-    other_feats = sorted(set([f for f in df.columns if not f.startswith('lvl') and not f.startswith('sess_')]))
+    sess_feats = sorted(set([f[7:] for f in df.columns if f.startswith('session')]))
+    other_feats = sorted(set([f for f in df.columns if not f.startswith('lvl') and not f.startswith('session')]))
+    selection_widget = widgets.GridBox([multi_checkbox_widget(lvl_feats, 'lvl'),
+                                        multi_checkbox_widget(sess_feats, 'session'),
+                                        multi_checkbox_widget(other_feats, 'other'),
+                                        level_selection],
+                                       layout=widgets.Layout(grid_template_columns=f"repeat(3, 500px)"))
+
+    return selection_widget
+
+def get_feat_selection_waves(df, rows=15, width='350px', filter_cols=lambda f: True, max_lvl=34):
+
+    start_level = widgets.IntSlider(value=0, min=0, max=max_lvl, step=1, description='Start Level:',
+                                    disabled=False, continuous_update=False, orientation='horizontal', readout=True,
+                                    readout_format='d')
+    end_level = widgets.IntSlider(value=0, min=0, max=max_lvl, step=1, description='End Level:',
+                                  disabled=False, continuous_update=False, orientation='horizontal', readout=True,
+                                  readout_format='d')
+    level_selection = widgets.GridBox([start_level, end_level])
+
+    def change_start_level(change):
+        end_level.min = start_level.value
+        if end_level.value < start_level.value:
+            end_level.value = start_level.value
+
+    start_level.observe(change_start_level, names="value")
+
+    lvl_feats = sorted(set([''.join(f.split('_')[1:]) for f in df.columns if f.startswith('lvl')]))
+    sess_feats = sorted(set([f[7:] for f in df.columns if f.startswith('session')]))
+    other_feats = sorted(set([f for f in df.columns if not f.startswith('lvl') and not f.startswith('session')]))
     selection_widget = widgets.GridBox([multi_checkbox_widget(lvl_feats, 'lvl'),
                                         multi_checkbox_widget(sess_feats, 'sess'),
                                         multi_checkbox_widget(other_feats, 'other'),
@@ -332,31 +417,23 @@ def get_feat_selection(df, rows=15, width='350px', filter_cols=lambda f: True, m
                                        layout=widgets.Layout(grid_template_columns=f"repeat(3, 500px)"))
 
     return selection_widget
-
-    # def change_start_level(change):
-    #     end_level.min = start_level.value
-    #     if end_level.value < start_level.value:
-    #         end_level.value = start_level.value
-    # start_level.observe(change_start_level, names="value")
-
-    # feat_selection = widgets.GridBox([lvl_feat_widget, sess_feat_widget, other_feat_widget,level_selection], 
-    #                                 layout=widgets.Layout(grid_template_columns=f"repeat(3, {width})"))
-    # return feat_selection
-
-
-def get_selected_feature_list(selection_widget):
-    # lvl_feat_widget = feat_selection.children[0]
-    # sess_feat_widget = feat_selection.children[1]
-    # other_feat_widget = feat_selection.children[2]
-    # lvl_start_widget = feat_selection.children[3].children[0]
-    # lvl_end_widget = feat_selection.children[3].children[1]
-    # lvl_range = range(lvl_start_widget.value, lvl_end_widget.value+1)
-    # lvl_feats = [f'lvl{i}_{f}' for i in lvl_range for f in lvl_feat_widget.value]
-    # sess_feats = list(sess_feat_widget.value)
-    # other_feats = list(other_feat_widget.value)
-    # return lvl_feats + sess_feats + other_feats
+def get_selected_feature_list_lakeland(selection_widget):
 
     sess_feats = [f'sess_{s.description}' for s in selection_widget.children[1].children[1].children if s.value]
+    other_feats = [s.description for s in selection_widget.children[2].children[1].children if s.value]
+    lvl_feats, lvl_range = get_level_feats_and_range(selection_widget)
+    all_lvl_feats = [f'lvl{i}_{f}' for f in lvl_feats for i in lvl_range]
+    return all_lvl_feats + sess_feats + other_feats
+def get_selected_feature_list_crystal(selection_widget):
+
+    sess_feats = [f'session{s.description}' for s in selection_widget.children[1].children[1].children if s.value]
+    other_feats = [s.description for s in selection_widget.children[2].children[1].children if s.value]
+    lvl_feats, lvl_range = get_level_feats_and_range(selection_widget)
+    all_lvl_feats = [f'lvl{i}_{f}' for f in lvl_feats for i in lvl_range]
+    return all_lvl_feats + sess_feats + other_feats
+def get_selected_feature_list_waves(selection_widget):
+
+    sess_feats = [f'session{s.description}' for s in selection_widget.children[1].children[1].children if s.value]
     other_feats = [s.description for s in selection_widget.children[2].children[1].children if s.value]
     lvl_feats, lvl_range = get_level_feats_and_range(selection_widget)
     all_lvl_feats = [f'lvl{i}_{f}' for f in lvl_feats for i in lvl_range]
@@ -433,14 +510,18 @@ def full_filter(get_df_func, options):
     game = options.game.upper()
     if game == 'LAKELAND':
         new_feat_df, new_feat_meta = create_new_base_features_lakeland(filtered_df, **options.new_feat_args)
+        aggregate_df, aggregate_meta = describe_lvl_feats_lakeland(new_feat_df, options.lvlfeats, options.lvlrange)
     elif game == 'CRYSTAL':
         new_feat_df, new_feat_meta = create_new_base_features_crystal(filtered_df, **options.new_feat_args)
+        aggregate_df, aggregate_meta = describe_lvl_feats_crystal(new_feat_df, options.lvlfeats, options.lvlrange)
     elif game == 'WAVES':
         new_feat_df, new_feat_meta = create_new_base_features_waves(filtered_df, **options.new_feat_args)
+        aggregate_df, aggregate_meta = describe_lvl_feats_waves(new_feat_df, options.lvlfeats, options.lvlrange)
     else:
         assert False
-    aggregate_df, aggregate_meta = describe_lvl_feats(new_feat_df, options.lvlfeats, options.lvlrange)
     reduced_df, reduced_meta = reduce_feats(aggregate_df, options.finalfeats)
+    reduced_df = reduced_df.fillna(0) # hack while NaNs are popping up in aggregate df or newfeatdf TODO: Fix this. It never used to be an issue.
+
     final_df, outlier_meta = reduce_outliers(reduced_df, options.zthresh)
     final_meta = import_meta + filter_meta + new_feat_meta + aggregate_meta + reduced_meta + outlier_meta
     return final_df, final_meta
