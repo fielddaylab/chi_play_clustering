@@ -40,9 +40,10 @@ class options:
                           'zthresh', 'finalfeats_readable'])
     lakeland_actions_lvl0 = options('lakeland',
                                    'actions_lvl0',
-                                   {'query_list': ['sess_avg_num_tiles_hovered_before_placing_home > 1'],
-                                    'verbose': False,
-                                    'fillna': 0},
+                                    {'query_list': ['debug == 0', 'sess_ActiveEventCount >= 10',
+                                                    'sessDuration >= 300',
+                                                    '_continue == 0',
+                                                    'sess_avg_num_tiles_hovered_before_placing_home > 1']},
                                    {'avg_tile_hover_lvl_range': range(0, 1)},
                                    ['count_buy_home', 'count_buy_farm', 'count_buy_livestock', 'count_buys'],
                                    range(0, 1),
@@ -56,9 +57,9 @@ class options:
                                    )
     lakeland_actions_lvl01 = options('lakeland',
                                     'actions_lvl01',
-                                    {'query_list': ['sess_avg_num_tiles_hovered_before_placing_home > 1'],
-                                     'verbose': False,
-                                     'fillna': 0},
+                                     {'query_list': ['debug == 0', 'sess_ActiveEventCount >= 10',
+                                                     'sessDuration >= 300',
+                                                     '_continue == 0', 'sess_avg_num_tiles_hovered_before_placing_home > 1']},
                                     {'avg_tile_hover_lvl_range': range(0, 2)},
                                     ['count_buy_home', 'count_buy_farm', 'count_buy_livestock', 'count_buys'],
                                     range(0, 2),
@@ -72,9 +73,10 @@ class options:
                                     )
     lakeland_actions_lvl0_only_rain = options('lakeland',
                                              'actions_lvl0_only_rain',
-                                             {'query_list': ['sess_avg_num_tiles_hovered_before_placing_home > 1'],
-                                              'verbose': False,
-                                              'fillna': 0},
+                                              {'query_list': ['debug == 0', 'sess_ActiveEventCount >= 10',
+                                                              'sessDuration >= 300',
+                                                              '_continue == 0',
+                                                              'sess_avg_num_tiles_hovered_before_placing_home > 1']},
                                              {'avg_tile_hover_lvl_range': range(0, 1)},
                                              ['count_buy_home', 'count_buy_farm', 'count_buy_livestock', 'count_buys'],
                                              range(0, 1),
@@ -88,12 +90,9 @@ class options:
                                              )
     lakeland_test_poop_placement_skimmer = options('lakeland',
                                                    'test_poop_placement_skimmer',
-                                                   {'one_query': False, 'cont': False, 'max_sessDuration': None,
-                                                    'min_sessDuration': 300, 'min_lvlend_ActiveEventCount': 3,
-                                                    'min_lvlstart_ActiveEventCount': 3, 'min_sessActiveEventCount': 10,
-                                                    'no_debug': True, 'lvlend': None, 'lvlstart': None,
-                                                    'only_query_list': False, 'query_list': [], 'fillna': 0,
-                                                    'verbose': False},
+                                                   {'query_list': ['debug == 0', 'sess_ActiveEventCount >= 10',
+                                                                   'sessDuration >= 300',
+                                                                   '_continue == 0']},
                                                    {'avg_tile_hover_lvl_range': range(0, 2), 'verbose': False},
                                                    ['avg_distance_between_poop_placement_and_lake',
                                                     'count_buy_skimmer'],
@@ -105,12 +104,8 @@ class options:
                                                    )
     lakeland_achs_achs_per_sess_second_sessDur = options('lakeland',
                                                          'achs_achs_per_sess_second_sessDur',
-                                                         {'one_query': False, 'cont': False, 'max_sessDuration': None,
-                                                          'min_sessDuration': 300, 'min_lvlend_ActiveEventCount': 3,
-                                                          'min_lvlstart_ActiveEventCount': 3,
-                                                          'min_sessActiveEventCount': 10, 'no_debug': True,
-                                                          'lvlend': None, 'lvlstart': None, 'only_query_list': False,
-                                                          'query_list': [], 'fillna': 0, 'verbose': False},
+                                                         {'query_list': ['debug == 0', 'sess_ActiveEventCount >= 10',
+                                                                         'sessDuration >= 300', '_continue == 0']},
                                                          {'avg_tile_hover_lvl_range': None, 'verbose': False},
                                                          [],
                                                          range(0, 1),
@@ -122,11 +117,8 @@ class options:
                                                          )
     lakeland_feedback_lv01 = options('lakeland',
                                      'feedback_lv01',
-                                     {'one_query': False, 'cont': False, 'max_sessDuration': None,
-                                      'min_sessDuration': 300, 'min_lvlend_ActiveEventCount': 3,
-                                      'min_lvlstart_ActiveEventCount': 3, 'min_sessActiveEventCount': 10,
-                                      'no_debug': True, 'lvlend': None, 'lvlstart': None, 'only_query_list': False,
-                                      'query_list': [], 'fillna': 0, 'verbose': False},
+                                     {'query_list': ['debug == 0', 'sess_ActiveEventCount >= 10', 'sessDuration >= 300',
+                                                     '_continue == 0']},
                                      {'avg_tile_hover_lvl_range': None, 'verbose': False},
                                      ['count_blooms', 'count_deaths', 'count_farmfails', 'count_food_produced',
                                       'count_milk_produced'],
@@ -236,7 +228,7 @@ def getCrystalDecJanLogDF():
 def get_lakeland_default_filter(lvlstart=None, lvlend=None, no_debug=True,
               min_sessActiveEventCount=10,
               min_lvlstart_ActiveEventCount=3,
-              min_lvlend_ActiveEventCount=3, min_sessDuration=300, max_sessDuration=None, cont=False, one_query=False):
+              min_lvlend_ActiveEventCount=3, min_sessDuration=300, max_sessDuration=None, cont=False):
     query_list = []
 
 
@@ -534,7 +526,15 @@ def reduce_outliers(df, z_thresh, show_graphs=True):
 def full_filter(get_df_func, options):
     df, import_meta = get_df_func()
     filtered_df, filter_meta = filter_df(df, **options.filter_args)
-    new_feat_df, new_feat_meta = create_new_base_features(filtered_df, **options.new_feat_args)
+    game = options.game.upper()
+    if game == 'LAKELAND':
+        new_feat_df, new_feat_meta = create_new_base_features_lakeland(filtered_df, **options.new_feat_args)
+    elif game == 'CRYSTAL':
+        new_feat_df, new_feat_meta = create_new_base_features_crystal(filtered_df, **options.new_feat_args)
+    elif game == 'WAVES':
+        new_feat_df, new_feat_meta = create_new_base_features_waves(filtered_df, **options.new_feat_args)
+    else:
+        assert False
     aggregate_df, aggregate_meta = describe_lvl_feats(new_feat_df, options.lvlfeats, options.lvlrange)
     reduced_df, reduced_meta = reduce_feats(aggregate_df, options.finalfeats)
     final_df, outlier_meta = reduce_outliers(reduced_df, options.zthresh)

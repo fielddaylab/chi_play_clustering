@@ -57,7 +57,7 @@ class Workflow:
         self.outlier_method = None
         self.scaling_method = 'Robust'
         self.normalization_method = 'Normalizer'
-        self.pca_dimension_count = 5
+        self.pca_dimension_count = 2
         self.clustering_method = "KMeans"
         self.clustering_count = 4
 
@@ -425,9 +425,12 @@ def add_cluster_features_to_df(pipeline, df, data):
 
 def main():
     utils.init_path()
-    # test_on_1125_data()
-    w = Workflow(cu.options.lakeland_achs_achs_per_sess_second_sessDur, r'G:\My Drive\Field Day\Research and Writing Projects\2020 CHI Play - Lakeland Clustering\Jupyter\Results\Lakeland\test')
-    w.RunWorkflow(cu.getLakelandDecJanLogDF)
+    filter_options = cu.options.lakeland_actions_lvl01
+    output_foler = r'G:\My Drive\Field Day\Research and Writing Projects\2020 CHI Play - Lakeland Clustering\Jupyter\Results\Lakeland\test'
+    df_getter = cu.getLakelandDecJanLogDF
+
+    w = Workflow(filter_options=filter_options, base_output_dir=output_foler)
+    w.RunWorkflow(get_df_func=df_getter)
 
 
 def test_on_1125_data():
