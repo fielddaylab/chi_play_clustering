@@ -520,8 +520,10 @@ def full_filter(get_df_func, options):
         assert False
     reduced_df, reduced_meta = reduce_feats(aggregate_df, options.finalfeats)
     reduced_df = reduced_df.fillna(0) # hack while NaNs are popping up in aggregate df or newfeatdf TODO: Fix this. It never used to be an issue.
-
-    final_df, outlier_meta = reduce_outliers(reduced_df, options.zthresh)
+    if options.zthresh is not None:
+        final_df, outlier_meta = reduce_outliers(reduced_df, options.zthresh)
+    else:
+        final_df, outlier_meta = reduced_df, []
     final_meta = import_meta + filter_meta + new_feat_meta + aggregate_meta + reduced_meta + outlier_meta
     return final_df, final_meta
 
