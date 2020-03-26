@@ -235,11 +235,12 @@ class Workflow:
         ax1.set_xlim([-0.1, 1])
         ax1.set_xlabel('Silhouette coefficient values')
         ax1.set_ylabel('Cluster labels')
-        title = title or f'Silhouette Plot Avg={int(avg_score*100)}%'
+        title = title or f'Silhouettes {self.clustering_abbrev()} Avg={int(avg_score*100)}%'
         ax1.set_title(title, y=1.02)
         if save:
             savepath = os.path.join(self.get_base_output_dir(), f'{title}.png')
             plt.savefig(savepath)
+            plt.close()
 
         return
 
