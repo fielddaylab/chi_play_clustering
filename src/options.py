@@ -98,6 +98,22 @@ class Options:
                                      ['deaths', 'farmfails', 'food', 'milk']
                                      )
 
+
+    lakeland_feedback_lv01_with_bloom = options('lakeland',
+                                     'feedback_lv01_with_bloom',
+                                     {'query_list': ['debug == 0', 'sess_ActiveEventCount >= 10', 'sessDuration >= 300',
+                                                     '_continue == 0']},
+                                     {'avg_tile_hover_lvl_range': None, 'verbose': False},
+                                     ['count_blooms', 'count_deaths', 'count_farmfails', 'count_food_produced',
+                                      'count_milk_produced'],
+                                     range(0, 2),
+                                     ['avg_lvl_0_to_1_count_deaths', 'avg_lvl_0_to_1_count_farmfails',
+                                      'avg_lvl_0_to_1_count_food_produced', 'avg_lvl_0_to_1_count_milk_produced',
+                                     'avg_lvl_0_to_1_count_blooms'],
+                                     3,
+                                     ['deaths', 'farmfails', 'food', 'milk', 'blooms']
+                                     )
+
     crystal_dummy = options('crystal',
                             'dummy',
                             {'query_list': [], 'one_query': False, 'fillna': 0, 'verbose': False},
@@ -121,3 +137,16 @@ class Options:
                           3,
                           []
                           )
+    waves_actions_lv016 = options('waves',
+        'actions_lv016',
+            {'query_list': ['QA3_questionCorrect==QA3_questionCorrect'], 'one_query': False, 'fillna': 0,
+             'verbose': False},
+            {'verbose': False},
+            ['menuBtnCount','beginCount', 'totalArrowMoves', 'totalResets', 'totalSkips', 'totalSliderMoves'],
+            range(0, 17),
+            ['sum_lvl_0_to_16_beginCount', 'sum_lvl_0_to_16_menuBtnCount',
+             'sum_lvl_0_to_16_totalArrowMoves', 'sum_lvl_0_to_16_totalResets', 'sum_lvl_0_to_16_totalSkips',
+             'sum_lvl_0_to_16_totalSliderMoves'],
+            None,
+            []
+            )
