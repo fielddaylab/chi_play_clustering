@@ -29,12 +29,40 @@ import ipywidgets as widgets
 from collections import namedtuple
 import numpy as np
 from scipy import stats
+from typing import Optional, List, Iterable
 
 
 
 
 
 def print_options(meta):
+    """
+    Takes in meta text and outputs text for an options group.
+    :param meta: meta text. Expected format will be like:
+
+    Metadata:
+Import from fhttps://opengamedata.fielddaylab.wisc.edu/data/LAKELAND/LAKELAND_20191201_to_20191231_de09c18_proc.zip
+Import from fData/Raw Log Data/LAKELAND_20200101_to_20200131_a9720c1_proc.zip
+*arg* filter_args = {'query_list': ['debug == 0', 'sess_ActiveEventCount >= 10', 'sessDuration >= 300', '_continue == 0'], 'one_query': False, 'fillna': 0, 'verbose': True}
+Query: Intial Shape, output_shape: (32227, 1647)
+Query: debug == 0, output_shape: (32221, 1647)
+Query: sess_ActiveEventCount >= 10, output_shape: (26934, 1647)
+Query: sessDuration >= 300, output_shape: (16109, 1647)
+Query: _continue == 0, output_shape: (10591, 1647)
+Filled NaN with 0
+*arg* new_feat_args = {'verbose': False, 'avg_tile_hover_lvl_range': None}
+*arg* lvlfeats = ['count_blooms', 'count_deaths', 'count_farmfails', 'count_food_produced', 'count_milk_produced']
+*arg* lvlrange = range(0, 2)
+Describe Level Feats lvls 0 to 1. Assuming WINDOW_SIZE_SECONDS=300 and WINDOW_OVERLAP_SECONDS=30, filtered by (sessDuration > 570)
+*arg* finalfeats = ['avg_lvl_0_to_1_count_deaths', 'avg_lvl_0_to_1_count_farmfails', 'avg_lvl_0_to_1_count_food_produced', 'avg_lvl_0_to_1_count_milk_produced']
+Original Num Rows: 6712
+*arg* zthresh = 3
+Removed points with abs(ZScore) >= 3. Reduced num rows: 6497
+
+    where all args are denoted by an initial *arg* and values are after =.
+
+
+    """
     if type(meta) == str:
         meta = meta.split('\n')
     inner = ',\n\t'.join(["'GAME'", "'NAME'"] + [l[6:].split(' = ')[1] for l in meta if l.startswith('*arg*')] + ['[]'])
@@ -42,6 +70,11 @@ def print_options(meta):
 
 
 def openZipFromURL(url):
+    """
+
+    :param url: url pointing to a zipfile
+    :return: zipfile object, list of metadata lines
+    """
     metadata = [f'Import from f{url}']
     resp = urllib.request.urlopen(url)
     zipfile = ZipFile(BytesIO(resp.read()))
@@ -50,6 +83,11 @@ def openZipFromURL(url):
 
 
 def openZipFromPath(path):
+    """
+
+    :param path: path pointing to a zipfile
+    :return: zipfile object, list of metadata lines
+    """
     metadata = [f'Import from f{path}']
     zipfile = ZipFile(path)
 
@@ -57,6 +95,11 @@ def openZipFromPath(path):
 
 
 def readCSVFromPath(path):
+    """
+
+    :param path: path pointing to a csv
+    :return: dataframe, List[str] of metadata lines
+    """
     import os
     print(os.getcwd())
     metadata = [f'Import from f{path}']
@@ -65,12 +108,20 @@ def readCSVFromPath(path):
 
 
 def getLakelandNov25ClassDF():
+    """
+
+    :return: (df, metadata List[str])
+    """
     path = 'Data/Filtered Log Data/Only school day 11-25 pid sessions.csv'
     return readCSVFromPath(path)
 
 
 # consider making a general version with parameter for filename, index columns
 def getLakelandDecJanLogDF():
+    """
+
+    :return: (df, metadata List[str])
+    """
     # define paths for DecJanLog
     _proc_zip_url_dec = 'https://opengamedata.fielddaylab.wisc.edu/data/LAKELAND/LAKELAND_20191201_to_20191231_de09c18_proc.zip'
     _proc_zip_path_jan = 'Data/Raw Log Data/LAKELAND_20200101_to_20200131_a9720c1_proc.zip'
@@ -91,6 +142,10 @@ def getLakelandDecJanLogDF():
 
 
 def getWavesDecJanLogDF():
+    """
+
+    :return: (df, metadata List[str])
+    """
     # define paths for DecJanLog
     _proc_zip_path_dec = 'https://opengamedata.fielddaylab.wisc.edu/data/WAVES/WAVES_20191201_to_20191231_de09c18_proc.zip'
     _proc_zip_path_jan = 'https://opengamedata.fielddaylab.wisc.edu/data/WAVES/WAVES_20200101_to_20200131_de09c18_proc.zip'
@@ -110,6 +165,10 @@ def getWavesDecJanLogDF():
 
 
 def getCrystalDecJanLogDF():
+    """
+
+    :return: (df, metadata List[str])
+    """
     # define paths for DecJanLog
     _proc_zip_path_dec = 'https://opengamedata.fielddaylab.wisc.edu/data/CRYSTAL/CRYSTAL_20191201_to_20191231_de09c18_proc.zip'
     _proc_zip_path_jan = 'https://opengamedata.fielddaylab.wisc.edu/data/CRYSTAL/CRYSTAL_20200101_to_20200131_de09c18_proc.zip'
@@ -128,10 +187,24 @@ def getCrystalDecJanLogDF():
     return df, metadata
 
 
-def get_lakeland_default_filter(lvlstart=None, lvlend=None, no_debug=True,
-              min_sessActiveEventCount=10,
-              min_lvlstart_ActiveEventCount=3,
-              min_lvlend_ActiveEventCount=3, min_sessDuration=300, max_sessDuration=None, cont=False):
+def get_lakeland_default_filter(lvlstart: Optional[int]=None, lvlend: Optional[bool]=None, no_debug: Optional[bool]=True,
+              min_sessActiveEventCount: Optional[int]=10,
+              min_lvlstart_ActiveEventCount: Optional[int]=3,
+              min_lvlend_ActiveEventCount: Optional[int]=3, min_sessDuration: Optional[int]=300, max_sessDuration: Optional[int]=None, cont: Optional[bool]=False) -> List[str]:
+    """
+
+    :param lvlstart: levelstart to be used for other parameters (None if not used)
+    :param lvlend: levelend to be used for other parameters (None if not used)
+    :param no_debug: boolean whether or not to use only players that have used SPYPARTY or only not used SPYPARTY  (None if not used)
+    :param min_sessActiveEventCount:  (None if not used)
+    :param min_lvlstart_ActiveEventCount:  (None if not used)
+    :param min_lvlend_ActiveEventCount:  (None if not used)
+    :param min_sessDuration:  (None if not used)
+    :param max_sessDuration:  (None if not used)
+    :param cont:  (None if not used)
+    :return:
+    """
+    get_lakeland_default_filter()
     query_list = []
 
 
@@ -160,7 +233,16 @@ def get_waves_default_filter():
 
 
 # split out query creation per-game
-def filter_df(df, query_list, one_query=False, fillna=0, verbose=True):
+def filter_df(df: pd.DataFrame, query_list: List[str], one_query: bool = False, fillna: object = 0, verbose: bool = True) -> (pd.DataFrame, List[str]):
+    """
+
+    :param df: dataframe to filter
+    :param query_list: list of queries for filter
+    :param one_query: bool to do the query (faster) as one query or seperate queries (slower, gives more info)
+    :param fillna: value to fill NaNs with
+    :param verbose: whether to input information
+    :return: (df, List[str])
+    """
     df = df.rename({'continue': '_continue'}, axis=1)
     filter_args = locals()
     filter_args.pop('df')
@@ -231,6 +313,12 @@ def create_new_base_features_lakeland(df, verbose=False, avg_tile_hover_lvl_rang
     return df, new_feat_meta
 
 def create_new_base_features_waves(df, verbose=False):
+    """
+    Currently a stub. Used to create new features from existing ones. See create_new_base_features_lakeland for example.
+    :param df:
+    :param verbose:
+    :return:
+    """
     new_base_feature_args = locals()
     new_base_feature_args.pop('df')
     new_feat_meta = [f'*arg* new_feat_args = {new_base_feature_args}']
@@ -239,6 +327,13 @@ def create_new_base_features_waves(df, verbose=False):
 
 
 def create_new_base_features_crystal(df, verbose=False):
+    """
+
+    Currently a stub. Used to create new features from existing ones. See create_new_base_features_lakeland for example.
+    :param df:
+    :param verbose:
+    :return:
+    """
     new_base_feature_args = locals()
     new_base_feature_args.pop('df')
     new_feat_meta = [f'*arg* new_feat_args = {new_base_feature_args}']
@@ -247,13 +342,18 @@ def create_new_base_features_crystal(df, verbose=False):
 
 
 def describe_lvl_feats_lakeland(df, fbase_list, lvl_range, level_time=300, level_overlap=30):
-    """
 
+    """
+    Calculates sum/avg of given level base features (fnames without lvlN_ prefix) in the level range.
+    Will automatically filter out players who did not complete the given level range in the df
+    May have a bug.
+
+    :param level_time: number of seconds per level (window)
+    :param level_overlap: number of overlap seconds per level (window)
+    :rtype: (df, List[str]) where the new df includes sum_ and avg_lvl_A_to_B.
     :param df: dataframe to pull from and append to
-    :param fbase_list: list of features to sum
-    :param fbase: the name of the feature without lvlN_
-    :param fromlvl: starting level to sum
-    :param tolvl: final level to sum
+    :param fbase_list: list of feature bases (fnames without lvlN_ prefix)
+    :param lvl_range: range of levels to choose. typically range(min_level, max_level+1)
     """
     metadata = []
     metadata.append(f'*arg* lvlfeats = {fbase_list}')
@@ -276,12 +376,13 @@ def describe_lvl_feats_lakeland(df, fbase_list, lvl_range, level_time=300, level
 
 def describe_lvl_feats_crystal(df, fbase_list, lvl_range):
     """
+    Calculates sum/avg of given level base features (fnames without lvlN_ prefix) in the level range.
+    May have a bug.
 
+    :rtype: (df, List[str]) where the new df includes sum_ and avg_lvl_A_to_B
     :param df: dataframe to pull from and append to
-    :param fbase_list: list of features to sum
-    :param fbase: the name of the feature without lvlN_
-    :param fromlvl: starting level to sum
-    :param tolvl: final level to sum
+    :param fbase_list: list of feature bases (fnames without lvlN_ prefix)
+    :param lvl_range: range of levels to choose. typically range(min_level, max_level+1)
     """
     metadata = []
     metadata.append(f'*arg* lvlfeats = {fbase_list}')
@@ -305,13 +406,15 @@ def describe_lvl_feats_crystal(df, fbase_list, lvl_range):
     return df, metadata
 
 def describe_lvl_feats_waves(df, fbase_list, lvl_range):
-    """
 
+    """
+    Calculates sum/avg of given level base features (fnames without lvlN_ prefix) in the level range.
+    May have a bug.
+
+    :rtype: (df, List[str]) where the new df includes sum_ and avg_lvl_A_to_B
     :param df: dataframe to pull from and append to
-    :param fbase_list: list of features to sum
-    :param fbase: the name of the feature without lvlN_
-    :param fromlvl: starting level to sum
-    :param tolvl: final level to sum
+    :param fbase_list: list of feature bases (fnames without lvlN_ prefix)
+    :param lvl_range: range of levels to choose. typically range(min_level, max_level+1)
     """
     metadata = []
     metadata.append(f'*arg* lvlfeats = {fbase_list}')
@@ -335,7 +438,14 @@ def describe_lvl_feats_waves(df, fbase_list, lvl_range):
 
 
 
-def get_feat_selection_lakeland(df, rows=15,width='350px',filter_cols=lambda f: True, max_lvl=9):
+def get_feat_selection_lakeland(df,  max_lvl=9):
+    """
+    Gets the feature selection widget.
+    :param df:
+    :param max_lvl:
+    :return:
+    """
+
 
     start_level = widgets.IntSlider(value=0,min=0,max=max_lvl,step=1,description='Start Level:',
                                     disabled=False,continuous_update=False,orientation='horizontal',readout=True,readout_format='d')
@@ -361,7 +471,13 @@ def get_feat_selection_lakeland(df, rows=15,width='350px',filter_cols=lambda f: 
 
     return selection_widget
 
-def get_feat_selection_crystal(df, rows=15, width='350px', filter_cols=lambda f: True, max_lvl=8):
+def get_feat_selection_crystal(df,  max_lvl=8):
+    """
+    Gets the feature selection widget.
+    :param df:
+    :param max_lvl:
+    :return:
+    """
 
     start_level = widgets.IntSlider(value=0, min=0, max=max_lvl, step=1, description='Start Level:',
                                     disabled=False, continuous_update=False, orientation='horizontal', readout=True,
@@ -389,7 +505,13 @@ def get_feat_selection_crystal(df, rows=15, width='350px', filter_cols=lambda f:
 
     return selection_widget
 
-def get_feat_selection_waves(df, rows=15, width='350px', filter_cols=lambda f: True, max_lvl=34):
+def get_feat_selection_waves(df, max_lvl=34):
+    """
+    Gets the feature selection widget.
+    :param df:
+    :param max_lvl:
+    :return:
+    """
 
     start_level = widgets.IntSlider(value=0, min=0, max=max_lvl, step=1, description='Start Level:',
                                     disabled=False, continuous_update=False, orientation='horizontal', readout=True,
@@ -417,6 +539,11 @@ def get_feat_selection_waves(df, rows=15, width='350px', filter_cols=lambda f: T
 
     return selection_widget
 def get_selected_feature_list_lakeland(selection_widget):
+    """
+
+    :param selection_widget:
+    :return: list of features selected
+    """
 
     sess_feats = [f'sess_{s.description}' for s in selection_widget.children[1].children[1].children if s.value]
     other_feats = [s.description for s in selection_widget.children[2].children[1].children if s.value]
@@ -424,6 +551,11 @@ def get_selected_feature_list_lakeland(selection_widget):
     all_lvl_feats = [f'lvl{i}_{f}' for f in lvl_feats for i in lvl_range]
     return all_lvl_feats + sess_feats + other_feats
 def get_selected_feature_list_crystal(selection_widget):
+    """
+
+    :param selection_widget:
+    :return: list of features selected
+    """
 
     sess_feats = [f'session{s.description}' for s in selection_widget.children[1].children[1].children if s.value]
     other_feats = [s.description for s in selection_widget.children[2].children[1].children if s.value]
@@ -431,6 +563,11 @@ def get_selected_feature_list_crystal(selection_widget):
     all_lvl_feats = [f'lvl{i}_{f}' for f in lvl_feats for i in lvl_range]
     return all_lvl_feats + sess_feats + other_feats
 def get_selected_feature_list_waves(selection_widget):
+    """
+
+    :param selection_widget:
+    :return: list of features selected
+    """
 
     sess_feats = [f'session{s.description}' for s in selection_widget.children[1].children[1].children if s.value]
     other_feats = [s.description for s in selection_widget.children[2].children[1].children if s.value]
@@ -439,7 +576,12 @@ def get_selected_feature_list_waves(selection_widget):
     return all_lvl_feats + sess_feats + other_feats
 
 
-def get_level_feats_and_range(selection_widget):
+def get_level_feats_and_range(selection_widget) -> (List[str], Iterable):
+    """
+
+    :param selection_widget:
+    :return: List of fbases from selection_widget and level range
+    """
     lvl_start_widget = selection_widget.children[3].children[0]
     lvl_end_widget = selection_widget.children[3].children[1]
     lvl_feats = [s.description for s in selection_widget.children[0].children[1].children if s.value]
@@ -488,10 +630,25 @@ def multi_checkbox_widget(descriptions, category):
 
 
 def reduce_feats(df, featlist):
+    """
+    Takes in a df and outputs only the given columns in featlist
+    :param df:
+    :param featlist:
+    :return:
+    """
     return df[featlist].copy(), [f'*arg* finalfeats = {featlist}']
 
 
 def reduce_outliers(df, z_thresh, show_graphs=True):
+    """
+    Takes in df and z_thresh, shows box plots, and outputs graph with points of zscore>z_thresh removed.
+    Does not always work properly. Does not seem to tolerate NaNs.
+    TODO: fix.
+    :param df:
+    :param z_thresh:
+    :param show_graphs:
+    :return:
+    """
     meta = []
     meta.append(f"Original Num Rows: {len(df)}")
     meta.append(f"*arg* zthresh = {z_thresh}")
@@ -503,7 +660,14 @@ def reduce_outliers(df, z_thresh, show_graphs=True):
     return no_outlier_df, meta
 
 
-def full_filter(get_df_func, options):
+def full_filter(get_df_func, options) -> (pd.DataFrame, List[str]):
+    """
+    Takes in a df_getter_function and options group.
+    Outputs the filtered df and the meta.
+    :param get_df_func:
+    :param options:
+    :return:
+    """
     df, import_meta = get_df_func()
     filtered_df, filter_meta = filter_df(df, **options.filter_args)
     game = options.game.upper()

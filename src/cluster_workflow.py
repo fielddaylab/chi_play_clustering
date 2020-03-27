@@ -39,7 +39,7 @@ class Workflow:
         self._base_output_dir = base_output_dir
 
         # flags
-        self.verbose: False
+        self.verbose = False
 
         # steps
         self.pre_histogram = True
@@ -258,6 +258,7 @@ class Workflow:
         if save:
             savepath = os.path.join(self.get_cluster_output_dir(), f'{title}.png')
             plt.savefig(savepath)
+            # TODO: Close figure (and all similar figures)
 
     def radarCharts(self, df, labels, save=True):
         clusters = set(labels)

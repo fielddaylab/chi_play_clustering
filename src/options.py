@@ -139,7 +139,7 @@ class Options:
                           )
     waves_actions_lv016 = options('waves',
         'actions_lv016',
-            {'query_list': ['QA3_questionCorrect==QA3_questionCorrect'], 'one_query': False, 'fillna': 0,
+            {'query_list': ['QA3_questionCorrect==QA3_questionCorrect'], 'one_query': False, 'fillna': 0, # A==A meaning A is not NaN
              'verbose': False},
             {'verbose': False},
             ['menuBtnCount','beginCount', 'totalArrowMoves', 'totalResets', 'totalSkips', 'totalSliderMoves'],
