@@ -163,3 +163,27 @@ class Options:
                                   None,
                                   []
                                   )
+
+    waves_feedback_lv016 = options('waves',
+            'feedback_lv016',
+            {'fillna': 0, 'one_query': False, 'query_list': ['QA3_questionCorrect==QA3_questionCorrect'],
+             'verbose': False},
+            {'verbose': False},
+            ['closenessIntercept', 'closenessR2', 'closenessSlope', 'succeedCount', 'totalFails'],
+            range(0, 17),
+            ['sum_lvl_0_to_16_closenessIntercept', 'sum_lvl_0_to_16_closenessR2', 'sum_lvl_0_to_16_closenessSlope',
+             'sum_lvl_0_to_16_succeedCount', 'sum_lvl_0_to_16_totalFails', 'sum_random_complete_count'],
+            None,
+            []
+            )
+
+    waves_progression = options('waves',
+	'progression',
+	{'fillna': 0, 'one_query': False, 'query_list': [], 'verbose': False},
+	{'verbose': False},
+	['completed', 'totalLevelTime'],
+	range(0, 35),
+	['sum_lvl_0_to_34_completed', 'sum_lvl_0_to_34_totalLevelTime', 'sum_random_complete_count'],
+	None,
+	[]
+)
