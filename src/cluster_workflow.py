@@ -31,6 +31,7 @@ class Workflow:
     DEFAULT_SCALE = "robust"
 
     def __init__(self, filter_options, base_output_dir=None, nested_folder_output=True):
+        self.further_filter_query_list = None
         self.plot_cluster_scatter = True
         self.plot_radars = True
         utils.init_path()
@@ -93,6 +94,15 @@ class Workflow:
 
     def get_filename(self):
         return None  # some_string
+
+    def query(self, df, query_list):
+        meta = []
+        for q in query_list:
+            df = df.query(q)
+            outstr = f'Query: {q}, output_shape: {df.shape}'
+            meta.append(outstr)
+
+        return df, meta
 
     def Histogram(self, df: pd.DataFrame, num_bins: int = None, title: str = None, log_scale=True, save=True):
         title = title or 'Histograms'
@@ -339,9 +349,13 @@ class Workflow:
 
     def RunWorkflow(self, get_df_func):
         original_df, meta = cu.full_filter(get_df_func, self.filter_options)
+        if self.further_filter_query_list is not None:
+            original_df, md = self.query(original_df, self.further_filter_query_list)
+            meta.extend(md)
         self.save_csv_and_meta(original_df, meta, self.get_base_output_dir(), 'filtered_data')
         working_df = original_df.copy()
         original_cols = list(working_df.columns)
+
         # Preprocessing - LogTransform, Scaling, Normalization #
         # show working_df before any processing
 
