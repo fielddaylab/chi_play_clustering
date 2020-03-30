@@ -59,7 +59,8 @@ class Workflow:
         self.normalization_method = 'Normalizer'
         self.pca_dimension_count = 2
         self.clustering_method = "KMeans"
-        self.clustering_count = 4
+        self.clustering_counts = [4]
+        self.clustering_count = self.clustering_counts[0]
 
         # viz
         self.color_dict = {i: v for i, v in enumerate(plt.cm.get_cmap('tab10').colors)}
@@ -184,7 +185,7 @@ class Workflow:
 
     def Cluster(self, df, cluster_count: int, clustering_method=None):
         meta = []
-        cluster_count = cluster_count or self.clustering_count
+        cluster_count = cluster_count or self.clustering_counts
         clustering_method = clustering_method or self.clustering_method
         nparray = df.to_numpy()
 
@@ -386,25 +387,27 @@ class Workflow:
 
         # silhouette and clustering
         if self.do_clustering:
-            while self.clustering_count is None:
+            while self.clustering_counts is None:
                 inp = input('k? ')
                 try:
-                    self.clustering_count = int(inp.strip())
+                    self.clustering_counts = [int(inp.strip())]
                 except:
                     pass
-            labels, md = self.Cluster(cluster_df, cluster_count=self.clustering_count)
-            meta.extend(md)
+            for cluster_count in self.clustering_counts:
+                self.clustering_count = cluster_count
+                labels, md = self.Cluster(cluster_df, cluster_count=cluster_count)
+                meta.extend(md)
 
-            if self.plot_silhouettes:
-                self.Silhouettes(cluster_df, labels)
-            if self.plot_cluster_scatter:
-                self.scatter(working_df, labels)
+                if self.plot_silhouettes:
+                    self.Silhouettes(cluster_df, labels)
+                if self.plot_cluster_scatter:
+                    self.scatter(working_df, labels)
 
-            if self.plot_radars:
-                self.radarCharts(original_df, labels)
-            self.save_csv_and_meta(cluster_df, meta, self.get_cluster_output_dir(), 'data_clustered_on')
-            original_df['label'] = labels
-            self.save_csv_and_meta(original_df, meta, self.get_cluster_output_dir(), 'clusters')
+                if self.plot_radars:
+                    self.radarCharts(original_df, labels)
+                self.save_csv_and_meta(cluster_df, meta, self.get_cluster_output_dir(), 'data_clustered_on')
+                original_df['label'] = labels
+                self.save_csv_and_meta(original_df, meta, self.get_cluster_output_dir(), 'clusters')
 
         return working_df, meta
 
