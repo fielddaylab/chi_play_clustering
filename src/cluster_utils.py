@@ -225,10 +225,16 @@ def get_lakeland_default_filter(lvlstart: Optional[int]=None, lvlend: Optional[b
 
     return query_list
 
-def get_crystal_default_filter():
-    return []
+def get_waves_default_filter(through_QA1=False, through_QA3=False):
+    query_list = []
+    if through_QA1:
+        query_list.append('QA1_questionCorrect==QA1_questionCorrect')
+    if through_QA3:
+        query_list.append('QA3_questionCorrect==QA3_questionCorrect')
 
-def get_waves_default_filter():
+    return query_list
+
+def get_crystal_default_filter():
     return []
 
 
@@ -322,6 +328,10 @@ def create_new_base_features_waves(df, verbose=False):
     new_base_feature_args = locals()
     new_base_feature_args.pop('df')
     new_feat_meta = [f'*arg* new_feat_args = {new_base_feature_args}']
+
+    random_lvls = [9, 17, 29, 32, 34]
+    random_completeCount_sum = ' + '.join([f'lvl{lvl}_completeCount' for lvl in random_lvls])
+    df = df.eval(f'sum_random_complete_count = {random_completeCount_sum}')
 
     return df, new_feat_meta
 
@@ -652,6 +662,8 @@ def reduce_outliers(df, z_thresh, show_graphs=True):
     meta = []
     meta.append(f"Original Num Rows: {len(df)}")
     meta.append(f"*arg* zthresh = {z_thresh}")
+    if z_thresh is None:
+        return df, meta
     df.plot(kind='box', title=f'Original Data n={len(df)}', figsize=(20, 5))
     z = np.abs(stats.zscore(df))
     no_outlier_df = df[(z < z_thresh).all(axis=1)]
