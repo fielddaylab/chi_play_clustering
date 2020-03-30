@@ -150,3 +150,16 @@ class Options:
             None,
             []
             )
+    waves_actions_lv016_no_skips = options('waves',
+                                  'actions_lv016_no_skips',
+                                  {'query_list': ['QA3_questionCorrect==QA3_questionCorrect'], 'one_query': False, 'fillna': 0,
+                                   'verbose': False},
+                                  {'verbose': False},
+                                  ['menuBtnCount','beginCount', 'totalArrowMoves', 'totalResets', 'totalSkips', 'totalSliderMoves'],
+                                  range(0, 17),
+                                  ['sum_lvl_0_to_16_beginCount', 'sum_lvl_0_to_16_menuBtnCount',
+                                   'sum_lvl_0_to_16_totalArrowMoves', 'sum_lvl_0_to_16_totalResets',
+                                   'sum_lvl_0_to_16_totalSliderMoves'],
+                                  None,
+                                  []
+                                  )
