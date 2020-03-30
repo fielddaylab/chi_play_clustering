@@ -1,0 +1,3 @@
+BASE_DIR = r'PATH\TO\HERE\chi_play_clustering'
+OUTPUT_DIR = r'PATH\TO\HERE\chi_play_clustering\Results'
+
