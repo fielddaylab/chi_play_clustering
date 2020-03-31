@@ -234,8 +234,17 @@ def get_waves_default_filter(through_QA1=False, through_QA3=False):
 
     return query_list
 
-def get_crystal_default_filter():
-    return []
+def get_crystal_default_filter(end_level = None, through_QA=None):
+    query_list = []
+    if end_level is not None:
+        end_level = min(8,end_level)
+        for lvl in range(end_level+1):
+            query_list.append(f'lvl{lvl}_durationInSecs > 0')
+
+    if through_QA is not None:
+        through_QA = min(through_QA, 2)
+        query_list.append(f'QA{through_QA}_questionCorrect==QA{through_QA}_questionCorrect')
+    return query_list
 
 
 # split out query creation per-game
@@ -300,6 +309,9 @@ def create_new_base_features_lakeland(df, verbose=False, avg_tile_hover_lvl_rang
             item_sum_query = '(' + ' + '.join([hover_f_tot(i, item) for i in avg_tile_hover_lvl_range]) + ')'
             tot_sum_query = '(' + ' + '.join([f'lvl{i}_count_buys' for i in avg_tile_hover_lvl_range]) + ')'
             df = df.eval(f'{fname} = {item_sum_query} / {tot_sum_query}')
+
+    sess_buy_sum_query = ' + '.join([f'sess_count_buy_{i}' for i in items])
+    df = df.eval(f'sess_count_buys = {sess_buy_sum_query}')
 
     # count achievement features, achs_per_sec features
     if verbose:
@@ -379,7 +391,7 @@ def describe_lvl_feats_lakeland(df, fbase_list, lvl_range, level_time=300, level
     sum_prefix = f'sum_lvl_{fromlvl}_to_{tolvl}_'
     avg_prefix = f'avg_lvl_{fromlvl}_to_{tolvl}_'
     for fn in fbase_list:
-        tdf = df[[f'lvl{i}_{fn}' for i in lvl_range]].fillna(0)
+        tdf = df[[f'lvl{i}_{fn}' for i in lvl_range]].fillna(0).copy()
         df[sum_prefix + fn] = tdf.sum(axis=1)
         df[avg_prefix + fn] = tdf.mean(axis=1)
     return df, metadata

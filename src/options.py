@@ -25,7 +25,7 @@ class Options:
     lakeland_actions_lvl01 = options('lakeland',
                                      'actions_lvl01',
                                      {'query_list': ['debug == 0', 'sess_ActiveEventCount >= 10',
-                                                     'sessDuration >= 300',
+                                                     f'sessDuration >= {60*5}', f'sessDuration < {60*45}',
                                                      '_continue == 0',
                                                      'sess_avg_num_tiles_hovered_before_placing_home > 1']},
                                      {'avg_tile_hover_lvl_range': range(0, 2)},
@@ -36,6 +36,23 @@ class Options:
                                       'sum_lvl_0_to_1_count_buy_farm',
                                       'sum_lvl_0_to_1_count_buy_livestock',
                                       'sum_lvl_0_to_1_count_buys'],
+                                     3,
+                                     ['hovers\nbefore\nfarm', 'home', 'farm', 'livestock', 'buys']
+                                     )
+    lakeland_actions_sess = options('lakeland',
+                                     'actions_sess',
+                                     {'query_list': ['debug == 0', 'sess_ActiveEventCount >= 10',
+                                                     f'sessDuration >= {60*5}', f'sessDuration < {60*45}',
+                                                     '_continue == 0',
+                                                     'sess_avg_num_tiles_hovered_before_placing_home > 1']},
+                                     {'avg_tile_hover_lvl_range': range(0, 2)},
+                                     ['count_buy_home', 'count_buy_farm', 'count_buy_livestock', 'count_buys'],
+                                     range(0, 2),
+                                     ['weighted_avg_lvl_0_to_1_avg_num_tiles_hovered_before_placing_farm',
+                                      'sess_count_buy_home',
+                                      'sess_count_buy_farm',
+                                      'sess_count_buy_livestock',
+                                      'sess_count_buys'],
                                      3,
                                      ['hovers\nbefore\nfarm', 'home', 'farm', 'livestock', 'buys']
                                      )
@@ -114,6 +131,20 @@ class Options:
                                      ['deaths', 'farmfails', 'food', 'milk', 'blooms']
                                      )
 
+    lakeland_feedback_sess_with_bloom = options('lakeland',
+                                                'feedback_sess_with_bloom',
+                                                {'query_list': ['debug == 0', 'sess_ActiveEventCount >= 10', 'sessDuration >= 300',
+                                                                '_continue == 0']},
+                                                {'avg_tile_hover_lvl_range': None, 'verbose': False},
+                                                ['count_blooms', 'count_deaths', 'count_farmfails', 'count_food_produced',
+                                                 'count_milk_produced'],
+                                                range(0, 2),
+                                                ['sess_count_deaths', 'sess_count_farmfails',
+                                                 'sess_count_food_produced', 'sess_count_milk_produced',
+                                                 'sess_count_blooms'],
+                                                3,
+                                                ['deaths', 'farmfails', 'food', 'milk', 'blooms']
+                                                )
     crystal_dummy = options('crystal',
                             'dummy',
                             {'query_list': [], 'one_query': False, 'fillna': 0, 'verbose': False},
@@ -125,6 +156,43 @@ class Options:
                             3,
                             []
                             )
+
+    crystal_progression = options('crystal',
+            'progression',
+            {'query_list': [], 'one_query': False, 'fillna': 0, 'verbose': False},
+            {'verbose': False},
+            ['completesCount', 'finalScore'],
+            range(0, 9),
+            ['sessionDurationInSecs', 'sum_lvl_0_to_8_completesCount', 'sum_lvl_0_to_8_finalScore'],
+            None,
+            []
+            )
+
+    crystal_actions = options('crystal',
+            'actions',
+            {'query_list': ['lvl0_durationInSecs > 0', 'lvl1_durationInSecs > 0', 'lvl2_durationInSecs > 0',
+                            'lvl3_durationInSecs > 0', 'lvl4_durationInSecs > 0', 'QA1_questionCorrect==QA1_questionCorrect'], 'one_query': False, 'fillna': 0,
+             'verbose': False},
+            {'verbose': False},
+            ['avgMoleculeDragDurationInSecs', 'clearBtnPresses', 'moleculeMoveCount', 'singleRotateCount',
+             'stampRotateCount'],
+            range(0, 5),
+            ['sum_lvl_0_to_4_avgMoleculeDragDurationInSecs', 'sum_lvl_0_to_4_clearBtnPresses',
+             'sum_lvl_0_to_4_moleculeMoveCount', 'sum_lvl_0_to_4_singleRotateCount', 'sum_lvl_0_to_4_stampRotateCount'],
+            None,
+            []
+            )
+
+    crystal_feedback = options('crystal',
+	'feedback',
+	{'query_list': ['lvl0_durationInSecs > 0', 'lvl1_durationInSecs > 0', 'lvl2_durationInSecs > 0', 'lvl3_durationInSecs > 0', 'lvl4_durationInSecs > 0', 'QA1_questionCorrect==QA1_questionCorrect'], 'one_query': False, 'fillna': 0, 'verbose': False},
+	{'verbose': False},
+	['finalScore'],
+	range(0, 5),
+	['QA0_questionCorrect', 'QA1_questionCorrect', 'sum_lvl_0_to_4_finalScore'],
+	None,
+	[]
+)
 
     waves_dummy = options('waves',
                           'dummy',
