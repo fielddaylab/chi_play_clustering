@@ -40,7 +40,7 @@ class Workflow:
         self._base_output_dir = base_output_dir
 
         # flags
-        self.verbose = False
+        self.verbose = True
 
         # steps
         self.pre_histogram = True
@@ -352,6 +352,7 @@ class Workflow:
     def RunWorkflow(self, get_df_func):
         if self.verbose:
             print('Starting workflow.')
+            print('Saving to:', self.get_base_output_dir())
         original_df, meta = cu.full_filter(get_df_func, self.filter_options)
         if self.further_filter_query_list is not None:
             original_df, md = self.query(original_df, self.further_filter_query_list)
@@ -423,8 +424,9 @@ class Workflow:
                 if self.plot_silhouettes:
                     self.Silhouettes(cluster_df, labels)
                 if self.plot_cluster_scatter:
+                    self.scatter(pca_df, [0]*len(labels), title='PCA No Label Scatter')
                     self.scatter(working_df, labels, title='Preprocessed Scatter')
-                    self.scatter(pca_df, labels, title='PCA Scatter')
+                    self.scatter(pca_df, labels, title=f'PCA Scatter')
                     self.scatter(original_df, labels, title='Raw Scatter')
 
                 if self.plot_radars:
