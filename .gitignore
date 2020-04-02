@@ -9,8 +9,4 @@ __pycache__/
 /Results
 src/settings.py
 /venv
-Notebooks/Clustering/.ipynb_checkpoints/Set Filtering Options - Crystal-checkpoint.ipynb
-
-Notebooks/Clustering/.ipynb_checkpoints/Set Filtering Options - Lakeland-checkpoint.ipynb
-
-Notebooks/Clustering/.ipynb_checkpoints/Set Filtering Options - Waves-checkpoint.ipynb
+/.ipynb_checkpoints
