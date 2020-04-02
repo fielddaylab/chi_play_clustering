@@ -119,6 +119,7 @@ class Workflow:
         if save:
             savepath = os.path.join(self.get_base_output_dir(), f'{title}.png')
             plt.savefig(savepath)
+            plt.close()
 
     # TODO: Graph is part cut off, i think there might be some stuff hardcoded.
     def Correlations(self, df, heat_range=0.3, save=True):
@@ -191,6 +192,7 @@ class Workflow:
         if save:
             savepath = os.path.join(self.get_base_output_dir(), f'{title}.png')
             plt.savefig(savepath)
+            plt.close()
         return
 
     def Cluster(self, df, cluster_count: int, clustering_method=None):
@@ -269,7 +271,7 @@ class Workflow:
         if save:
             savepath = os.path.join(self.get_cluster_output_dir(), f'{title}.png')
             plt.savefig(savepath)
-            # TODO: Close figure (and all similar figures)
+            plt.close()
 
     def radarCharts(self, df, labels, save=True):
         clusters = set(labels)
@@ -326,6 +328,7 @@ class Workflow:
             fig.subplots_adjust(wspace=0.4)
             if save:
                 plt.savefig(os.path.join(self.get_cluster_output_dir(),f'radar_{var}.png'))
+                plt.close()
         pass
 
     def save_csv_and_meta(self, df, meta_list, save_dir, csv_name, meta_name=None, permissions='w+'):
@@ -348,6 +351,8 @@ class Workflow:
         return None, []
 
     def RunWorkflow(self, get_df_func):
+        if self.verbose:
+            print('Starting workflow.')
         original_df, meta = cu.full_filter(get_df_func, self.filter_options)
         if self.further_filter_query_list is not None:
             original_df, md = self.query(original_df, self.further_filter_query_list)
@@ -391,6 +396,8 @@ class Workflow:
                     self.pca_dimension_count = int(inp.strip())
                 except:
                     pass
+            if self.verbose:
+                print('Starting PCA.')
             pca_df, md = self.PCA(working_df)
             meta.extend(md)
             cluster_df = pca_df
@@ -409,6 +416,8 @@ class Workflow:
                     pass
             for cluster_count in self.clustering_counts:
                 self.clustering_count = cluster_count
+                if self.verbose:
+                    print(f'Starting clustering k={self.clustering_count}')
                 labels, md = self.Cluster(cluster_df, cluster_count=cluster_count)
                 meta.extend(md)
 
@@ -422,6 +431,7 @@ class Workflow:
                 self.save_csv_and_meta(cluster_df, meta, self.get_cluster_output_dir(), 'data_clustered_on')
                 original_df['label'] = labels
                 self.save_csv_and_meta(original_df, meta, self.get_cluster_output_dir(), 'clusters')
+                original_df = original_df.drop('label', axis=1)
 
         return working_df, meta
 
