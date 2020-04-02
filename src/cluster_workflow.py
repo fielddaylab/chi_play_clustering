@@ -65,6 +65,7 @@ class Workflow:
 
         # viz
         self.color_dict = {i: v for i, v in enumerate(plt.cm.get_cmap('tab10').colors)}
+        self.color_dict[-1] = (.2, .2, .2)
         self.histogram = None  # not sure what this was meant for...
         self.feature_names = None
 
@@ -258,7 +259,7 @@ class Workflow:
         return
 
 
-    def scatter(self, df, labels, save=True):
+    def scatter(self, df, labels, save=True, title='Scatter'):
         num_cols = len(df.columns)
         color_array = [self.color_dict[c] for c in labels]
         fig, axs = plt.subplots(num_cols, num_cols, figsize=(30, 30))
@@ -267,14 +268,12 @@ class Workflow:
                 axs[x, y].scatter(df.iloc[:, x], df.iloc[:, y], c=color_array)
                 axs[x, y].set_xlabel(df.columns[x])
                 axs[x, y].set_ylabel(df.columns[y])
-        title = 'Scatter'
         if save:
             savepath = os.path.join(self.get_cluster_output_dir(), f'{title}.png')
             plt.savefig(savepath)
             plt.close()
 
     def radarCharts(self, df, labels, save=True):
-        clusters = set(labels)
         categories = self.filter_options.finalfeats_readable
         description_df = df.describe()
         summary_df = pd.DataFrame(columns=description_df.columns)
@@ -424,7 +423,9 @@ class Workflow:
                 if self.plot_silhouettes:
                     self.Silhouettes(cluster_df, labels)
                 if self.plot_cluster_scatter:
-                    self.scatter(working_df, labels)
+                    self.scatter(working_df, labels, title='Preprocessed Scatter')
+                    self.scatter(pca_df, labels, title='PCA Scatter')
+                    self.scatter(original_df, labels, title='Raw Scatter')
 
                 if self.plot_radars:
                     self.radarCharts(original_df, labels)
