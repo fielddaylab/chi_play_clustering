@@ -1,0 +1,27 @@
+Metadata:
+Import from fhttps://opengamedata.fielddaylab.wisc.edu/data/LAKELAND/LAKELAND_20191201_to_20191231_de09c18_proc.zip
+Import from fData/Raw Log Data/LAKELAND_20200101_to_20200131_a9720c1_proc.zip
+*arg* filter_args = {'query_list': ['debug == 0', 'sess_ActiveEventCount >= 10', 'sessDuration >= 300', '_continue == 0'], 'one_query': False, 'fillna': 0, 'verbose': True}
+Query: Intial Shape, output_shape: (32227, 1647)
+Query: debug == 0, output_shape: (32221, 1647)
+Query: sess_ActiveEventCount >= 10, output_shape: (26934, 1647)
+Query: sessDuration >= 300, output_shape: (16109, 1647)
+Query: _continue == 0, output_shape: (10591, 1647)
+Filled NaN with 0
+*arg* new_feat_args = {'verbose': False, 'avg_tile_hover_lvl_range': None}
+*arg* lvlfeats = ['count_blooms', 'count_deaths', 'count_farmfails', 'count_food_produced', 'count_milk_produced']
+*arg* lvlrange = range(0, 2)
+Describe Level Feats lvls 0 to 1. Assuming WINDOW_SIZE_SECONDS=300 and WINDOW_OVERLAP_SECONDS=30, filtered by (sessDuration > 570)
+*arg* finalfeats = ['avg_lvl_0_to_1_count_deaths', 'avg_lvl_0_to_1_count_farmfails', 'avg_lvl_0_to_1_count_food_produced', 'avg_lvl_0_to_1_count_milk_produced', 'avg_lvl_0_to_1_count_blooms']
+Original Num Rows: 6712
+*arg* zthresh = 3
+Removed points with abs(ZScore) >= 3. Reduced num rows: 6448
+LogTransform using np.long1p
+Scaled with scikitlearn RobustScaler(copy=True, quantile_range=(25.0, 75.0), with_centering=True,
+             with_scaling=True)
+PCA df calculated with scikitlearn PCA(copy=True, iterated_power='auto', n_components=2, random_state=None,
+    svd_solver='auto', tol=0.0, whiten=False)
+Cluster on PCA dims
+Labels calculated via clusterer: KMeans(algorithm='auto', copy_x=True, init='k-means++', max_iter=300,
+       n_clusters=7, n_init=10, n_jobs=None, precompute_distances='auto',
+       random_state=None, tol=0.0001, verbose=0)
