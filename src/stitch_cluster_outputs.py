@@ -3,9 +3,11 @@ import os
 from src.settings import BASE_DIR
 import json
 # print(BASE_DIR)
-def main(only_labels=True, output_dir = 'Results/Lakeland'):
+def main(only_labels=True, output_dir = 'Results', game='Lakeland'):
 
-    best_path = os.path.join(BASE_DIR, 'Results/Lakeland/best.json')
+    game = game.upper().capitalize()
+    best_path = os.path.join(BASE_DIR, f'Results/{game}/best.json')
+
 
     with open(best_path) as f:
         cluster_paths = json.load(f)
@@ -13,7 +15,8 @@ def main(only_labels=True, output_dir = 'Results/Lakeland'):
     for k, v in cluster_paths.items():
         path = os.path.join(BASE_DIR, v['path'])
         label_name = f"{k} ({v['name']})"
-        tdf = pd.read_csv(path, index_col=['sessID', 'num_play'], comment='#')
+        index_col = ['sessID', 'num_play'] if game.upper() == 'LAEKLAND' else ['sessionID']
+        tdf = pd.read_csv(path, index_col=index_col, comment='#')
         if only_labels:
             tdf = tdf[['label']]
         tdf = tdf.rename({'label': label_name}, axis=1)
@@ -34,7 +37,7 @@ def main(only_labels=True, output_dir = 'Results/Lakeland'):
 
 
 if __name__ == '__main__':
-   main()
+   main(game='Crystal')
 
     # dfs = [pd.read_csv(p, index_col=['sessID', 'num_play'], comment='#') for p in cluster_paths]
     # full_df = dfs[0]
