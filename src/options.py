@@ -159,7 +159,7 @@ class Options:
 
     crystal_progression = options('crystal',
             'progression',
-            {'query_list': [], 'one_query': False, 'fillna': 0, 'verbose': False},
+            {'query_list': [f'sessionDurationInSecs < {45*60}', 'lvl0_durationInSecs > 0'], 'one_query': False, 'fillna': 0, 'verbose': False},
             {'verbose': False},
             ['completesCount', 'finalScore'],
             range(0, 9),
@@ -183,6 +183,19 @@ class Options:
             []
             )
 
+    crystal_actions_sess = options('crystal',
+                              'actions_filter_sess',
+                              {'query_list': ['lvl0_durationInSecs > 0', 'lvl1_durationInSecs > 0'], 'one_query': False, 'fillna': 0,
+                               'verbose': False},
+                              {'verbose': False},
+                              ['avgMoleculeDragDurationInSecs', 'clearBtnPresses', 'moleculeMoveCount', 'singleRotateCount',
+                               'stampRotateCount'],
+                              range(0, 9),
+                              ['sum_lvl_0_to_8_avgMoleculeDragDurationInSecs', 'sum_lvl_0_to_8_clearBtnPresses',
+                               'sum_lvl_0_to_8_moleculeMoveCount', 'sum_lvl_0_to_8_singleRotateCount', 'sum_lvl_0_to_8_stampRotateCount'],
+                              None,
+                              []
+                              )
     crystal_feedback = options('crystal',
 	'feedback',
 	{'query_list': ['lvl0_durationInSecs > 0', 'lvl1_durationInSecs > 0', 'lvl2_durationInSecs > 0', 'lvl3_durationInSecs > 0', 'lvl4_durationInSecs > 0', 'QA1_questionCorrect==QA1_questionCorrect'], 'one_query': False, 'fillna': 0, 'verbose': False},
@@ -191,7 +204,7 @@ class Options:
 	range(0, 5),
 	['QA0_questionCorrect', 'QA1_questionCorrect', 'sum_lvl_0_to_4_finalScore'],
 	None,
-	[]
+	['Q0 Correct', 'Q1 Correct', 'Score Lv0-4']
 )
 
     waves_dummy = options('waves',
