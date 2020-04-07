@@ -1,0 +1,21 @@
+Metadata:
+Import from fhttps://opengamedata.fielddaylab.wisc.edu/data/CRYSTAL/CRYSTAL_20191201_to_20191231_de09c18_proc.zip
+Import from fhttps://opengamedata.fielddaylab.wisc.edu/data/CRYSTAL/CRYSTAL_20200101_to_20200131_de09c18_proc.zip
+*arg* filter_args = {'query_list': ['sessionDurationInSecs < 2700', 'lvl0_durationInSecs > 0'], 'one_query': False, 'fillna': 0, 'verbose': False}
+Query: Intial Shape, output_shape: (9513, 114)
+Query: sessionDurationInSecs < 2700, output_shape: (9299, 114)
+Query: lvl0_durationInSecs > 0, output_shape: (6868, 114)
+Filled NaN with 0
+*arg* new_feat_args = {'verbose': False}
+*arg* lvlfeats = ['completesCount', 'finalScore']
+*arg* lvlrange = range(0, 9)
+*arg* finalfeats = ['sessionDurationInSecs', 'sum_lvl_0_to_8_completesCount', 'sum_lvl_0_to_8_finalScore']
+LogTransform using np.long1p
+Scaled with scikitlearn RobustScaler(copy=True, quantile_range=(25.0, 75.0), with_centering=True,
+             with_scaling=True)
+PCA df calculated with scikitlearn PCA(copy=True, iterated_power='auto', n_components=2, random_state=None,
+    svd_solver='auto', tol=0.0, whiten=False)
+Cluster on PCA dims
+Labels calculated via clusterer: KMeans(algorithm='auto', copy_x=True, init='k-means++', max_iter=300,
+       n_clusters=3, n_init=10, n_jobs=None, precompute_distances='auto',
+       random_state=None, tol=0.0001, verbose=0)
