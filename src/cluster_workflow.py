@@ -65,6 +65,7 @@ class Workflow:
 
         # viz
         self.color_dict = {i: v for i, v in enumerate(plt.cm.get_cmap('tab10').colors)}
+        self.color_dict.update({10+i:plt.cm.get_cmap('tab20').colors[2*i+1] for i in range(10) })
         self.color_dict[-1] = (.2, .2, .2)
         self.histogram = None  # not sure what this was meant for...
         self.feature_names = None
