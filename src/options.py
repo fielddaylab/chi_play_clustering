@@ -165,7 +165,7 @@ class Options:
             range(0, 9),
             ['sessionDurationInSecs', 'sum_lvl_0_to_8_completesCount', 'sum_lvl_0_to_8_finalScore'],
             None,
-            []
+            ['Session Duration', 'Level Completes', 'Total Score'],
             )
 
     crystal_actions = options('crystal',
@@ -180,7 +180,7 @@ class Options:
             ['sum_lvl_0_to_4_avgMoleculeDragDurationInSecs', 'sum_lvl_0_to_4_clearBtnPresses',
              'sum_lvl_0_to_4_moleculeMoveCount', 'sum_lvl_0_to_4_singleRotateCount', 'sum_lvl_0_to_4_stampRotateCount'],
             None,
-            []
+            ['Lv0-4 Avg Drag Duration', 'Lv0-4 Clears', 'Lv0-4 Moves', 'Lv0-4 Single Rotates', 'Lv0-4 Stamp Rotates']
             )
 
     crystal_actions_sess = options('crystal',

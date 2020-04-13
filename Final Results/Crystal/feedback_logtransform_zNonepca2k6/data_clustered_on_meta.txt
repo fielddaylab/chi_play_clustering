@@ -1,7 +1,7 @@
 Metadata:
 Import from fhttps://opengamedata.fielddaylab.wisc.edu/data/CRYSTAL/CRYSTAL_20191201_to_20191231_de09c18_proc.zip
 Import from fhttps://opengamedata.fielddaylab.wisc.edu/data/CRYSTAL/CRYSTAL_20200101_to_20200131_de09c18_proc.zip
-*arg* filter_args = {'query_list': ['lvl0_durationInSecs > 0', 'lvl1_durationInSecs > 0', 'lvl2_durationInSecs > 0', 'lvl3_durationInSecs > 0', 'lvl4_durationInSecs > 0', 'QA1_questionCorrect==QA1_questionCorrect'], 'one_query': False, 'fillna': 0, 'verbose': False}
+*arg* filter_args = {'query_list': ['lvl0_durationInSecs > 0', 'lvl1_durationInSecs > 0', 'lvl2_durationInSecs > 0', 'lvl3_durationInSecs > 0', 'lvl4_durationInSecs > 0', 'QA1_questionCorrect==QA1_questionCorrect', '((lvl0_finalScore != lvl0_finalScore) | (lvl0_completesCount != lvl0_completesCount) | ~((lvl0_finalScore == 0) & (lvl0_completesCount > 0)))', '((lvl1_finalScore != lvl1_finalScore) | (lvl1_completesCount != lvl1_completesCount) | ~((lvl1_finalScore == 0) & (lvl1_completesCount > 0)))', '((lvl2_finalScore != lvl2_finalScore) | (lvl2_completesCount != lvl2_completesCount) | ~((lvl2_finalScore == 0) & (lvl2_completesCount > 0)))', '((lvl3_finalScore != lvl3_finalScore) | (lvl3_completesCount != lvl3_completesCount) | ~((lvl3_finalScore == 0) & (lvl3_completesCount > 0)))', '((lvl4_finalScore != lvl4_finalScore) | (lvl4_completesCount != lvl4_completesCount) | ~((lvl4_finalScore == 0) & (lvl4_completesCount > 0)))'], 'one_query': False, 'fillna': 0, 'verbose': False}
 Query: Intial Shape, output_shape: (9513, 114)
 Query: lvl0_durationInSecs > 0, output_shape: (7039, 114)
 Query: lvl1_durationInSecs > 0, output_shape: (4616, 114)
@@ -9,6 +9,11 @@ Query: lvl2_durationInSecs > 0, output_shape: (3563, 114)
 Query: lvl3_durationInSecs > 0, output_shape: (2681, 114)
 Query: lvl4_durationInSecs > 0, output_shape: (1682, 114)
 Query: QA1_questionCorrect==QA1_questionCorrect, output_shape: (1637, 114)
+Query: ((lvl0_finalScore != lvl0_finalScore) | (lvl0_completesCount != lvl0_completesCount) | ~((lvl0_finalScore == 0) & (lvl0_completesCount > 0))), output_shape: (1634, 114)
+Query: ((lvl1_finalScore != lvl1_finalScore) | (lvl1_completesCount != lvl1_completesCount) | ~((lvl1_finalScore == 0) & (lvl1_completesCount > 0))), output_shape: (1633, 114)
+Query: ((lvl2_finalScore != lvl2_finalScore) | (lvl2_completesCount != lvl2_completesCount) | ~((lvl2_finalScore == 0) & (lvl2_completesCount > 0))), output_shape: (1626, 114)
+Query: ((lvl3_finalScore != lvl3_finalScore) | (lvl3_completesCount != lvl3_completesCount) | ~((lvl3_finalScore == 0) & (lvl3_completesCount > 0))), output_shape: (1623, 114)
+Query: ((lvl4_finalScore != lvl4_finalScore) | (lvl4_completesCount != lvl4_completesCount) | ~((lvl4_finalScore == 0) & (lvl4_completesCount > 0))), output_shape: (1576, 114)
 Filled NaN with 0
 *arg* new_feat_args = {'verbose': False}
 *arg* lvlfeats = ['finalScore']

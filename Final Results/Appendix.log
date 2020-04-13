@@ -1,0 +1,776 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7200 64-bit) (preloaded format=pdflatex 2019.10.13)  10 APR 2020 13:28
+entering extended mode
+**./Appendix.tex
+(Appendix.tex
+LaTeX2e <2019-10-01>
+("C:\Program Files\MiKTeX 2.9\tex/latex/base\article.cls"
+Document Class: article 2019/08/27 v1.4j Standard LaTeX document class
+("C:\Program Files\MiKTeX 2.9\tex/latex/base\size10.clo"
+File: size10.clo 2019/08/27 v1.4j Standard LaTeX file (size option)
+)
+\c@part=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/base\inputenc.sty"
+Package: inputenc 2018/08/11 v1.3c Input encoding file
+\inpenc@prehook=\toks14
+\inpenc@posthook=\toks15
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/etoolbox\etoolbox.sty"
+Package: etoolbox 2019/09/21 v2.5h e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count88
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\graphicx.sty"
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\keyval.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\graphics.sty"
+Package: graphics 2019/07/20 v1.3b Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\trig.sty"
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics-cfg\graphics.cfg"
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics-def\pdftex.def"
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count89
+\float@exts=\toks17
+\float@box=\box27
+\@float@everytoks=\toks18
+\@floatcapt=\box28
+) (Appendix.aux
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.5 ...g:Crystal\_actions\_raw\_histogram}{{1}{1}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.5 ...g:Crystal\_actions\_raw\_histogram}{{1}{1}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.7 ...\_actions\_preprocessed\_histogram}{{2}{1}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...\_actions\_preprocessed\_histogram}{{2}{1}}
+                                                  
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Extra \endcsname.
+\@ifundefined #1->\ifcsname #1\endcsname 
+                                         \@ifundefin@d@i \else \@ifundefin@d...
+l.7 ...\_actions\_preprocessed\_histogram}{{2}{1}}
+                                                  
+I'm ignoring this, since I wasn't doing a \csname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.7 ...\_actions\_preprocessed\_histogram}{{2}{1}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Label `fig:Crystal\_actions\_preprocessed\_histogram' multiply d
+efined.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.7 ...\_actions\_preprocessed\_histogram}{{2}{1}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.9 ...{fig:Crystal\_actions\_scree\_plot}{{3}{2}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Extra \endcsname.
+\@ifundefined #1->\ifcsname #1\endcsname 
+                                         \@ifundefin@d@i \else \@ifundefin@d...
+l.9 ...{fig:Crystal\_actions\_scree\_plot}{{3}{2}}
+                                                  
+I'm ignoring this, since I wasn't doing a \csname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.9 ...{fig:Crystal\_actions\_scree\_plot}{{3}{2}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Label `fig:Crystal\_actions\_scree\_plot' multiply defined.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.9 ...{fig:Crystal\_actions\_scree\_plot}{{3}{2}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.11 ..._silhouettes\_znonepca2k4\_avg=34}{{4}{2}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Extra \endcsname.
+\@ifundefined #1->\ifcsname #1\endcsname 
+                                         \@ifundefin@d@i \else \@ifundefin@d...
+l.11 ..._silhouettes\_znonepca2k4\_avg=34}{{4}{2}}
+                                                  
+I'm ignoring this, since I wasn't doing a \csname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.11 ..._silhouettes\_znonepca2k4\_avg=34}{{4}{2}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Label `fig:Crystal\_actions\_silhouettes\_znonepca2k4\_avg=34' m
+ultiply defined.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.11 ..._silhouettes\_znonepca2k4\_avg=34}{{4}{2}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.13 ...ig:Crystal\_actions\_pca\_scatter}{{5}{3}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Extra \endcsname.
+\@ifundefined #1->\ifcsname #1\endcsname 
+                                         \@ifundefin@d@i \else \@ifundefin@d...
+l.13 ...ig:Crystal\_actions\_pca\_scatter}{{5}{3}}
+                                                  
+I'm ignoring this, since I wasn't doing a \csname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.13 ...ig:Crystal\_actions\_pca\_scatter}{{5}{3}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Label `fig:Crystal\_actions\_pca\_scatter' multiply defined.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.13 ...ig:Crystal\_actions\_pca\_scatter}{{5}{3}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.15 ...ig:Crystal\_actions\_raw\_scatter}{{6}{4}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Extra \endcsname.
+\@ifundefined #1->\ifcsname #1\endcsname 
+                                         \@ifundefin@d@i \else \@ifundefin@d...
+l.15 ...ig:Crystal\_actions\_raw\_scatter}{{6}{4}}
+                                                  
+I'm ignoring this, since I wasn't doing a \csname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.15 ...ig:Crystal\_actions\_raw\_scatter}{{6}{4}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Label `fig:Crystal\_actions\_raw\_scatter' multiply defined.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.15 ...ig:Crystal\_actions\_raw\_scatter}{{6}{4}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.17 ...l\_actions\_preprocessed\_scatter}{{7}{5}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Extra \endcsname.
+\@ifundefined #1->\ifcsname #1\endcsname 
+                                         \@ifundefin@d@i \else \@ifundefin@d...
+l.17 ...l\_actions\_preprocessed\_scatter}{{7}{5}}
+                                                  
+I'm ignoring this, since I wasn't doing a \csname.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.17 ...l\_actions\_preprocessed\_scatter}{{7}{5}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+
+LaTeX Warning: Label `fig:Crystal\_actions\_preprocessed\_scatter' multiply def
+ined.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.17 ...l\_actions\_preprocessed\_scatter}{{7}{5}}
+                                                  
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+Runaway argument?
+{fig:Crystal\_actions\_radar\GenericError { }{LaTeX Error: There's no\ETC.
+! Paragraph ended before \@newl@bel was complete.
+<to be read again> 
+                   \par 
+l.19 ...or  <return>  to continue without it.}\par
+                                                   \let \reserved@d =*\def \...
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+
+
+Overfull \hbox (78.55634pt too wide) in paragraph at lines 7--19
+[][]\OT1/cmr/m/n/10 actions[]preprocessed[]histogram  []actions[]scree[]plot  [
+]actions[]silhouettes[]znonepca2k4[]avg=34
+ []
+
+! Missing { inserted.
+l.19 ...ut it.}\par \let \reserved@d =*\def \par }
+                                                  {{8}{5}}
+Where was the left brace? You said something like `\def\a}',
+which I'm going to interpret as `\def\a{}'.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.19 ...it.}\par \let \reserved@d =*\def \par }{{8
+                                                  }{5}}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Runaway argument?
+{fig:Crystal\_actions\_radar\GenericError { }{LaTeX Error: There's no\ETC.
+! Paragraph ended before \@newl@bel was complete.
+<to be read again> 
+                   \par 
+l.21 ...or  <return>  to continue without it.}\par
+                                                   \let \reserved@d =*\def \...
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+
+! Missing { inserted.
+l.21 ...ut it.}\par \let \reserved@d =*\def \par }
+                                                  {{9}{6}}
+Where was the left brace? You said something like `\def\a}',
+which I'm going to interpret as `\def\a{}'.
+
+Runaway argument?
+{fig:Crystal\_actions\_radar\GenericError { }{LaTeX Error: There's no\ETC.
+! Paragraph ended before \@newl@bel was complete.
+<to be read again> 
+                   \par 
+l.23 ...or  <return>  to continue without it.}\par
+                                                   \let \reserved@d =*\def \...
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+
+! Missing { inserted.
+l.23 ...ut it.}\par \let \reserved@d =*\def \par }
+                                                  {{10}{6}}
+Where was the left brace? You said something like `\def\a}',
+which I'm going to interpret as `\def\a{}'.
+
+)
+\openout1 = `Appendix.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+ ("C:\Program Files\MiKTeX 2.9\tex/context/base/mkii\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count90
+\scratchdimen=\dimen105
+\scratchbox=\box29
+\nofMPsegments=\count91
+\nofMParguments=\count92
+\everyMPshowfont=\toks19
+\MPscratchCnt=\count93
+\MPscratchDim=\dimen106
+\MPnumerator=\count94
+\makeMPintoPDFobject=\count95
+\everyMPtoPDFconversion=\toks20
+) ("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\epstopdf-base.sty"
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\infwarerr.sty"
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\grfext.sty"
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\kvdefinekeys.sty"
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\ltxcmds.sty"
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)))
+("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\kvoptions.sty"
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\kvsetkeys.sty"
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\etexcmds.sty"
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\ifluatex.sty"
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+))))
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\pdftexcmds.sty"
+Package: pdftexcmds 2019/07/25 v0.30 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\ifpdf.sty"
+Package: ifpdf 2018/09/07 v3.3 Provides the ifpdf switch
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+)
+<Crystal/actions_logtransform_zNonepca2k4/Raw Histogram.png, id=1, 1445.4pt x 3
+61.35pt>
+File: Crystal/actions_logtransform_zNonepca2k4/Raw Histogram.png Graphic file (
+type png)
+<use Crystal/actions_logtransform_zNonepca2k4/Raw Histogram.png>
+Package pdftex.def Info: Crystal/actions_logtransform_zNonepca2k4/Raw Histogram
+.png  used on input line 24.
+(pdftex.def)             Requested size: 345.0pt x 86.24606pt.
+<Crystal/actions_logtransform_zNonepca2k4/Preprocessed Histogram.png, id=3, 144
+5.4pt x 361.35pt>
+File: Crystal/actions_logtransform_zNonepca2k4/Preprocessed Histogram.png Graph
+ic file (type png)
+<use Crystal/actions_logtransform_zNonepca2k4/Preprocessed Histogram.png>
+Package pdftex.def Info: Crystal/actions_logtransform_zNonepca2k4/Preprocessed 
+Histogram.png  used on input line 30.
+(pdftex.def)             Requested size: 345.0pt x 86.24606pt.
+<Crystal/actions_logtransform_zNonepca2k4/Scree Plot.png, id=4, 578.16pt x 361.
+35pt>
+File: Crystal/actions_logtransform_zNonepca2k4/Scree Plot.png Graphic file (typ
+e png)
+<use Crystal/actions_logtransform_zNonepca2k4/Scree Plot.png>
+Package pdftex.def Info: Crystal/actions_logtransform_zNonepca2k4/Scree Plot.pn
+g  used on input line 36.
+(pdftex.def)             Requested size: 345.0pt x 215.6207pt.
+<Crystal/actions_logtransform_zNonepca2k4/Silhouettes zNonepca2k4 Avg=34.png, i
+d=5, 1300.86pt x 505.89pt>
+File: Crystal/actions_logtransform_zNonepca2k4/Silhouettes zNonepca2k4 Avg=34.p
+ng Graphic file (type png)
+<use Crystal/actions_logtransform_zNonepca2k4/Silhouettes zNonepca2k4 Avg=34.pn
+g>
+Package pdftex.def Info: Crystal/actions_logtransform_zNonepca2k4/Silhouettes z
+Nonepca2k4 Avg=34.png  used on input line 42.
+(pdftex.def)             Requested size: 345.0pt x 134.16055pt.
+ [1
+
+{C:/Users/johnm/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./Crystal/a
+ctions_logtransform_zNonepca2k4/Raw Histogram.png> <./Crystal/actions_logtransf
+orm_zNonepca2k4/Preprocessed Histogram.png>]
+<Crystal/actions_logtransform_zNonepca2k4/PCA Scatter.png, id=14, 2168.1pt x 21
+68.1pt>
+File: Crystal/actions_logtransform_zNonepca2k4/PCA Scatter.png Graphic file (ty
+pe png)
+<use Crystal/actions_logtransform_zNonepca2k4/PCA Scatter.png>
+Package pdftex.def Info: Crystal/actions_logtransform_zNonepca2k4/PCA Scatter.p
+ng  used on input line 48.
+(pdftex.def)             Requested size: 345.0pt x 344.9843pt.
+<Crystal/actions_logtransform_zNonepca2k4/Raw Scatter.png, id=15, 2168.1pt x 21
+68.1pt>
+File: Crystal/actions_logtransform_zNonepca2k4/Raw Scatter.png Graphic file (ty
+pe png)
+<use Crystal/actions_logtransform_zNonepca2k4/Raw Scatter.png>
+Package pdftex.def Info: Crystal/actions_logtransform_zNonepca2k4/Raw Scatter.p
+ng  used on input line 54.
+(pdftex.def)             Requested size: 345.0pt x 344.9843pt.
+ [2 <./Crystal/actions_logtransform_zNonepca2k4/Scree Plot.png> <./Crystal/acti
+ons_logtransform_zNonepca2k4/Silhouettes zNonepca2k4 Avg=34.png>]
+<Crystal/actions_logtransform_zNonepca2k4/Preprocessed Scatter.png, id=21, 2168
+.1pt x 2168.1pt>
+File: Crystal/actions_logtransform_zNonepca2k4/Preprocessed Scatter.png Graphic
+ file (type png)
+<use Crystal/actions_logtransform_zNonepca2k4/Preprocessed Scatter.png>
+Package pdftex.def Info: Crystal/actions_logtransform_zNonepca2k4/Preprocessed 
+Scatter.png  used on input line 60.
+(pdftex.def)             Requested size: 345.0pt x 344.9843pt.
+ [3 <./Crystal/actions_logtransform_zNonepca2k4/PCA Scatter.png>]
+<Crystal/actions_logtransform_zNonepca2k4/radar_mean.png, id=26, 1445.4pt x 361
+.35pt>
+File: Crystal/actions_logtransform_zNonepca2k4/radar_mean.png Graphic file (typ
+e png)
+<use Crystal/actions_logtransform_zNonepca2k4/radar_mean.png>
+Package pdftex.def Info: Crystal/actions_logtransform_zNonepca2k4/radar_mean.pn
+g  used on input line 66.
+(pdftex.def)             Requested size: 345.0pt x 86.24606pt.
+ [4 <./Crystal/actions_logtransform_zNonepca2k4/Raw Scatter.png>]
+<Crystal/actions_logtransform_zNonepca2k4/radar_std.png, id=31, 1445.4pt x 361.
+35pt>
+File: Crystal/actions_logtransform_zNonepca2k4/radar_std.png Graphic file (type
+ png)
+<use Crystal/actions_logtransform_zNonepca2k4/radar_std.png>
+Package pdftex.def Info: Crystal/actions_logtransform_zNonepca2k4/radar_std.png
+  used on input line 72.
+(pdftex.def)             Requested size: 345.0pt x 86.24606pt.
+<Crystal/actions_logtransform_zNonepca2k4/radar_zscore.png, id=32, 1445.4pt x 3
+61.35pt>
+File: Crystal/actions_logtransform_zNonepca2k4/radar_zscore.png Graphic file (t
+ype png)
+<use Crystal/actions_logtransform_zNonepca2k4/radar_zscore.png>
+Package pdftex.def Info: Crystal/actions_logtransform_zNonepca2k4/radar_zscore.
+png  used on input line 78.
+(pdftex.def)             Requested size: 345.0pt x 86.24606pt.
+ [5 <./Crystal/actions_logtransform_zNonepca2k4/Preprocessed Scatter.png> <./Cr
+ystal/actions_logtransform_zNonepca2k4/radar_mean.png>]
+<Crystal/feedback_logtransform_zNonepca2k6/Raw Histogram.png, id=38, 1445.4pt x
+ 361.35pt>
+File: Crystal/feedback_logtransform_zNonepca2k6/Raw Histogram.png Graphic file 
+(type png)
+<use Crystal/feedback_logtransform_zNonepca2k6/Raw Histogram.png>
+Package pdftex.def Info: Crystal/feedback_logtransform_zNonepca2k6/Raw Histogra
+m.png  used on input line 86.
+(pdftex.def)             Requested size: 345.0pt x 86.24606pt.
+<Crystal/feedback_logtransform_zNonepca2k6/Preprocessed Histogram.png, id=39, 1
+445.4pt x 361.35pt>
+File: Crystal/feedback_logtransform_zNonepca2k6/Preprocessed Histogram.png Grap
+hic file (type png)
+<use Crystal/feedback_logtransform_zNonepca2k6/Preprocessed Histogram.png>
+Package pdftex.def Info: Crystal/feedback_logtransform_zNonepca2k6/Preprocessed
+ Histogram.png  used on input line 92.
+(pdftex.def)             Requested size: 345.0pt x 86.24606pt.
+<Crystal/feedback_logtransform_zNonepca2k6/Scree Plot.png, id=40, 578.16pt x 36
+1.35pt>
+File: Crystal/feedback_logtransform_zNonepca2k6/Scree Plot.png Graphic file (ty
+pe png)
+<use Crystal/feedback_logtransform_zNonepca2k6/Scree Plot.png>
+Package pdftex.def Info: Crystal/feedback_logtransform_zNonepca2k6/Scree Plot.p
+ng  used on input line 98.
+(pdftex.def)             Requested size: 345.0pt x 215.6207pt.
+<Crystal/feedback_logtransform_zNonepca2k6/Silhouettes zNonepca2k6 Avg=47.png, 
+id=41, 1300.86pt x 505.89pt>
+File: Crystal/feedback_logtransform_zNonepca2k6/Silhouettes zNonepca2k6 Avg=47.
+png Graphic file (type png)
+<use Crystal/feedback_logtransform_zNonepca2k6/Silhouettes zNonepca2k6 Avg=47.p
+ng>
+Package pdftex.def Info: Crystal/feedback_logtransform_zNonepca2k6/Silhouettes 
+zNonepca2k6 Avg=47.png  used on input line 104.
+(pdftex.def)             Requested size: 345.0pt x 134.16055pt.
+ [6 <./Crystal/actions_logtransform_zNonepca2k4/radar_std.png> <./Crystal/actio
+ns_logtransform_zNonepca2k4/radar_zscore.png> <./Crystal/feedback_logtransform_
+zNonepca2k6/Raw Histogram.png> <./Crystal/feedback_logtransform_zNonepca2k6/Pre
+processed Histogram.png>]
+<Crystal/feedback_logtransform_zNonepca2k6/PCA Scatter.png, id=49, 2168.1pt x 2
+168.1pt>
+File: Crystal/feedback_logtransform_zNonepca2k6/PCA Scatter.png Graphic file (t
+ype png)
+<use Crystal/feedback_logtransform_zNonepca2k6/PCA Scatter.png>
+Package pdftex.def Info: Crystal/feedback_logtransform_zNonepca2k6/PCA Scatter.
+png  used on input line 110.
+(pdftex.def)             Requested size: 345.0pt x 344.9843pt.
+<Crystal/feedback_logtransform_zNonepca2k6/Raw Scatter.png, id=50, 2168.1pt x 2
+168.1pt>
+File: Crystal/feedback_logtransform_zNonepca2k6/Raw Scatter.png Graphic file (t
+ype png)
+<use Crystal/feedback_logtransform_zNonepca2k6/Raw Scatter.png>
+Package pdftex.def Info: Crystal/feedback_logtransform_zNonepca2k6/Raw Scatter.
+png  used on input line 116.
+(pdftex.def)             Requested size: 345.0pt x 344.9843pt.
+ [7 <./Crystal/feedback_logtransform_zNonepca2k6/Scree Plot.png> <./Crystal/fee
+dback_logtransform_zNonepca2k6/Silhouettes zNonepca2k6 Avg=47.png>]
+<Crystal/feedback_logtransform_zNonepca2k6/Preprocessed Scatter.png, id=57, 216
+8.1pt x 2168.1pt>
+File: Crystal/feedback_logtransform_zNonepca2k6/Preprocessed Scatter.png Graphi
+c file (type png)
+<use Crystal/feedback_logtransform_zNonepca2k6/Preprocessed Scatter.png>
+Package pdftex.def Info: Crystal/feedback_logtransform_zNonepca2k6/Preprocessed
+ Scatter.png  used on input line 122.
+(pdftex.def)             Requested size: 345.0pt x 344.9843pt.
+ [8 <./Crystal/feedback_logtransform_zNonepca2k6/PCA Scatter.png>]
+<Crystal/feedback_logtransform_zNonepca2k6/radar_mean.png, id=62, 1445.4pt x 36
+1.35pt>
+File: Crystal/feedback_logtransform_zNonepca2k6/radar_mean.png Graphic file (ty
+pe png)
+<use Crystal/feedback_logtransform_zNonepca2k6/radar_mean.png>
+Package pdftex.def Info: Crystal/feedback_logtransform_zNonepca2k6/radar_mean.p
+ng  used on input line 128.
+(pdftex.def)             Requested size: 345.0pt x 86.24606pt.
+ [9 <./Crystal/feedback_logtransform_zNonepca2k6/Raw Scatter.png>]
+<Crystal/feedback_logtransform_zNonepca2k6/radar_std.png, id=67, 1445.4pt x 361
+.35pt>
+File: Crystal/feedback_logtransform_zNonepca2k6/radar_std.png Graphic file (typ
+e png)
+<use Crystal/feedback_logtransform_zNonepca2k6/radar_std.png>
+Package pdftex.def Info: Crystal/feedback_logtransform_zNonepca2k6/radar_std.pn
+g  used on input line 134.
+(pdftex.def)             Requested size: 345.0pt x 86.24606pt.
+<Crystal/feedback_logtransform_zNonepca2k6/radar_zscore.png, id=68, 1445.4pt x 
+361.35pt>
+File: Crystal/feedback_logtransform_zNonepca2k6/radar_zscore.png Graphic file (
+type png)
+<use Crystal/feedback_logtransform_zNonepca2k6/radar_zscore.png>
+Package pdftex.def Info: Crystal/feedback_logtransform_zNonepca2k6/radar_zscore
+.png  used on input line 140.
+(pdftex.def)             Requested size: 345.0pt x 86.24606pt.
+ [10 <./Crystal/feedback_logtransform_zNonepca2k6/Preprocessed Scatter.png> <./
+Crystal/feedback_logtransform_zNonepca2k6/radar_mean.png>]
+<Crystal/progression_logtransform_zNonepca2k4/Raw Histogram.png, id=74, 1445.4p
+t x 361.35pt>
+File: Crystal/progression_logtransform_zNonepca2k4/Raw Histogram.png Graphic fi
+le (type png)
+<use Crystal/progression_logtransform_zNonepca2k4/Raw Histogram.png>
+Package pdftex.def Info: Crystal/progression_logtransform_zNonepca2k4/Raw Histo
+gram.png  used on input line 148.
+(pdftex.def)             Requested size: 345.0pt x 86.24606pt.
+<Crystal/progression_logtransform_zNonepca2k4/Preprocessed Histogram.png, id=75
+, 1445.4pt x 361.35pt>
+File: Crystal/progression_logtransform_zNonepca2k4/Preprocessed Histogram.png G
+raphic file (type png)
+<use Crystal/progression_logtransform_zNonepca2k4/Preprocessed Histogram.png>
+Package pdftex.def Info: Crystal/progression_logtransform_zNonepca2k4/Preproces
+sed Histogram.png  used on input line 154.
+(pdftex.def)             Requested size: 345.0pt x 86.24606pt.
+<Crystal/progression_logtransform_zNonepca2k4/Scree Plot.png, id=76, 578.16pt x
+ 361.35pt>
+File: Crystal/progression_logtransform_zNonepca2k4/Scree Plot.png Graphic file 
+(type png)
+<use Crystal/progression_logtransform_zNonepca2k4/Scree Plot.png>
+Package pdftex.def Info: Crystal/progression_logtransform_zNonepca2k4/Scree Plo
+t.png  used on input line 160.
+(pdftex.def)             Requested size: 345.0pt x 215.6207pt.
+<Crystal/progression_logtransform_zNonepca2k4/Silhouettes zNonepca2k4 Avg=43.pn
+g, id=77, 1300.86pt x 505.89pt>
+File: Crystal/progression_logtransform_zNonepca2k4/Silhouettes zNonepca2k4 Avg=
+43.png Graphic file (type png)
+<use Crystal/progression_logtransform_zNonepca2k4/Silhouettes zNonepca2k4 Avg=4
+3.png>
+Package pdftex.def Info: Crystal/progression_logtransform_zNonepca2k4/Silhouett
+es zNonepca2k4 Avg=43.png  used on input line 166.
+(pdftex.def)             Requested size: 345.0pt x 134.16055pt.
+ [11 <./Crystal/feedback_logtransform_zNonepca2k6/radar_std.png> <./Crystal/fee
+dback_logtransform_zNonepca2k6/radar_zscore.png> <./Crystal/progression_logtran
+sform_zNonepca2k4/Raw Histogram.png> <./Crystal/progression_logtransform_zNonep
+ca2k4/Preprocessed Histogram.png>]
+<Crystal/progression_logtransform_zNonepca2k4/PCA Scatter.png, id=85, 2168.1pt 
+x 2168.1pt>
+File: Crystal/progression_logtransform_zNonepca2k4/PCA Scatter.png Graphic file
+ (type png)
+<use Crystal/progression_logtransform_zNonepca2k4/PCA Scatter.png>
+Package pdftex.def Info: Crystal/progression_logtransform_zNonepca2k4/PCA Scatt
+er.png  used on input line 172.
+(pdftex.def)             Requested size: 345.0pt x 344.9843pt.
+<Crystal/progression_logtransform_zNonepca2k4/Raw Scatter.png, id=86, 2168.1pt 
+x 2168.1pt>
+File: Crystal/progression_logtransform_zNonepca2k4/Raw Scatter.png Graphic file
+ (type png)
+<use Crystal/progression_logtransform_zNonepca2k4/Raw Scatter.png>
+Package pdftex.def Info: Crystal/progression_logtransform_zNonepca2k4/Raw Scatt
+er.png  used on input line 178.
+(pdftex.def)             Requested size: 345.0pt x 344.9843pt.
+ [12 <./Crystal/progression_logtransform_zNonepca2k4/Scree Plot.png> <./Crystal
+/progression_logtransform_zNonepca2k4/Silhouettes zNonepca2k4 Avg=43.png>]
+<Crystal/progression_logtransform_zNonepca2k4/Preprocessed Scatter.png, id=92, 
+2168.1pt x 2168.1pt>
+File: Crystal/progression_logtransform_zNonepca2k4/Preprocessed Scatter.png Gra
+phic file (type png)
+<use Crystal/progression_logtransform_zNonepca2k4/Preprocessed Scatter.png>
+Package pdftex.def Info: Crystal/progression_logtransform_zNonepca2k4/Preproces
+sed Scatter.png  used on input line 184.
+(pdftex.def)             Requested size: 345.0pt x 344.9843pt.
+ [13 <./Crystal/progression_logtransform_zNonepca2k4/PCA Scatter.png>]
+<Crystal/progression_logtransform_zNonepca2k4/radar_mean.png, id=98, 1445.4pt x
+ 361.35pt>
+File: Crystal/progression_logtransform_zNonepca2k4/radar_mean.png Graphic file 
+(type png)
+<use Crystal/progression_logtransform_zNonepca2k4/radar_mean.png>
+Package pdftex.def Info: Crystal/progression_logtransform_zNonepca2k4/radar_mea
+n.png  used on input line 190.
+(pdftex.def)             Requested size: 345.0pt x 86.24606pt.
+ [14 <./Crystal/progression_logtransform_zNonepca2k4/Raw Scatter.png>]
+<Crystal/progression_logtransform_zNonepca2k4/radar_std.png, id=103, 1445.4pt x
+ 361.35pt>
+File: Crystal/progression_logtransform_zNonepca2k4/radar_std.png Graphic file (
+type png)
+<use Crystal/progression_logtransform_zNonepca2k4/radar_std.png>
+Package pdftex.def Info: Crystal/progression_logtransform_zNonepca2k4/radar_std
+.png  used on input line 196.
+(pdftex.def)             Requested size: 345.0pt x 86.24606pt.
+<Crystal/progression_logtransform_zNonepca2k4/radar_zscore.png, id=104, 1445.4p
+t x 361.35pt>
+File: Crystal/progression_logtransform_zNonepca2k4/radar_zscore.png Graphic fil
+e (type png)
+<use Crystal/progression_logtransform_zNonepca2k4/radar_zscore.png>
+Package pdftex.def Info: Crystal/progression_logtransform_zNonepca2k4/radar_zsc
+ore.png  used on input line 202.
+(pdftex.def)             Requested size: 345.0pt x 86.24606pt.
+ [15 <./Crystal/progression_logtransform_zNonepca2k4/Preprocessed Scatter.png> 
+<./Crystal/progression_logtransform_zNonepca2k4/radar_mean.png>]
+<Lakeland/actions_lvl01_logtransform_z3pca2k6/Raw Histogram.png, id=110, 1445.4
+pt x 361.35pt>
+File: Lakeland/actions_lvl01_logtransform_z3pca2k6/Raw Histogram.png Graphic fi
+le (type png)
+<use Lakeland/actions_lvl01_logtransform_z3pca2k6/Raw Histogram.png>
+Package pdftex.def Info: Lakeland/actions_lvl01_logtransform_z3pca2k6/Raw Histo
+gram.png  used on input line 212.
+(pdftex.def)             Requested size: 345.0pt x 86.24606pt.
+<Lakeland/actions_lvl01_logtransform_z3pca2k6/Preprocessed Histogram.png, id=11
+1, 1445.4pt x 361.35pt>
+File: Lakeland/actions_lvl01_logtransform_z3pca2k6/Preprocessed Histogram.png G
+raphic file (type png)
+<use Lakeland/actions_lvl01_logtransform_z3pca2k6/Preprocessed Histogram.png>
+Package pdftex.def Info: Lakeland/actions_lvl01_logtransform_z3pca2k6/Preproces
+sed Histogram.png  used on input line 218.
+(pdftex.def)             Requested size: 345.0pt x 86.24606pt.
+<Lakeland/actions_lvl01_logtransform_z3pca2k6/Scree Plot.png, id=112, 578.16pt 
+x 361.35pt>
+File: Lakeland/actions_lvl01_logtransform_z3pca2k6/Scree Plot.png Graphic file 
+(type png)
+<use Lakeland/actions_lvl01_logtransform_z3pca2k6/Scree Plot.png>
+Package pdftex.def Info: Lakeland/actions_lvl01_logtransform_z3pca2k6/Scree Plo
+t.png  used on input line 224.
+(pdftex.def)             Requested size: 345.0pt x 215.6207pt.
+ [16 <./Crystal/progression_logtransform_zNonepca2k4/radar_std.png> <./Crystal/
+progression_logtransform_zNonepca2k4/radar_zscore.png> <./Lakeland/actions_lvl0
+1_logtransform_z3pca2k6/Raw Histogram.png>]
+<Lakeland/actions_lvl01_logtransform_z3pca2k6/Silhouettes z3pca2k6 Avg=41.png, 
+id=119, 1300.86pt x 505.89pt>
+File: Lakeland/actions_lvl01_logtransform_z3pca2k6/Silhouettes z3pca2k6 Avg=41.
+png Graphic file (type png)
+<use Lakeland/actions_lvl01_logtransform_z3pca2k6/Silhouettes z3pca2k6 Avg=41.p
+ng>
+Package pdftex.def Info: Lakeland/actions_lvl01_logtransform_z3pca2k6/Silhouett
+es z3pca2k6 Avg=41.png  used on input line 230.
+(pdftex.def)             Requested size: 345.0pt x 134.16055pt.
+ [17 <./Lakeland/actions_lvl01_logtransform_z3pca2k6/Preprocessed Histogram.png
+> <./Lakeland/actions_lvl01_logtransform_z3pca2k6/Scree Plot.png> <./Lakeland/a
+ctions_lvl01_logtransform_z3pca2k6/Silhouettes z3pca2k6 Avg=41.png>] (Appendix.
+aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 2091 strings out of 492452
+ 40668 string characters out of 3129807
+ 93941 words of memory out of 3000000
+ 6442 multiletter control sequences out of 15000+200000
+ 4850 words of font info for 18 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 46i,5n,30p,788b,224s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+Output written on Appendix.pdf (17 pages, 5664069 bytes).
+PDF statistics:
+ 134 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 171 words of extra memory for PDF output out of 10000 (max. 10000000)
+

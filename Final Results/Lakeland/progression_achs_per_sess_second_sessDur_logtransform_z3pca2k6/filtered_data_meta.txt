@@ -1,0 +1,17 @@
+Metadata:
+Import from fhttps://opengamedata.fielddaylab.wisc.edu/data/LAKELAND/LAKELAND_20191201_to_20191231_de09c18_proc.zip
+Import from fData/Raw Log Data/LAKELAND_20200101_to_20200131_a9720c1_proc.zip
+*arg* filter_args = {'query_list': ['debug == 0', 'sess_ActiveEventCount >= 10', 'sessDuration >= 300', '_continue == 0'], 'one_query': False, 'fillna': 0, 'verbose': True}
+Query: Intial Shape, output_shape: (32227, 1647)
+Query: debug == 0, output_shape: (32221, 1647)
+Query: sess_ActiveEventCount >= 10, output_shape: (26934, 1647)
+Query: sessDuration >= 300, output_shape: (16109, 1647)
+Query: _continue == 0, output_shape: (10591, 1647)
+Filled NaN with 0
+*arg* new_feat_args = {'verbose': False, 'avg_tile_hover_lvl_range': None}
+*arg* lvlfeats = []
+*arg* lvlrange = range(0, 1)
+*arg* finalfeats = ['bloom_achs_per_sess_second', 'farm_achs_per_sess_second', 'money_achs_per_sess_second', 'pop_achs_per_sess_second', 'sessDuration']
+Original Num Rows: 10591
+*arg* zthresh = 3
+Removed points with abs(ZScore) >= 3. Reduced num rows: 9936
