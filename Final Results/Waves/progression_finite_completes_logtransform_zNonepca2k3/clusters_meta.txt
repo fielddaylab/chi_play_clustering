@@ -10,6 +10,7 @@ Filled NaN with 0
 *arg* lvlfeats = ['completed', 'totalLevelTime']
 *arg* lvlrange = range(0, 35)
 *arg* finalfeats = ['sum_lvl_0_to_34_completed', 'sum_lvl_0_to_34_totalLevelTime', 'sum_random_complete_count']
+LogTransform using np.long1p
 Scaled with scikitlearn RobustScaler(copy=True, quantile_range=(25.0, 75.0), with_centering=True,
              with_scaling=True)
 PCA df calculated with scikitlearn PCA(copy=True, iterated_power='auto', n_components=2, random_state=None,
