@@ -354,7 +354,7 @@ class Workflow:
         if self.verbose:
             print('Starting workflow.')
             print('Saving to:', self.get_base_output_dir())
-        original_df, meta = cu.full_filter(get_df_func, self.filter_options)
+        original_df, meta = cu.full_filter(get_df_func, self.filter_options, outpath=self.get_base_output_dir())
         if self.further_filter_query_list is not None:
             original_df, md = self.query(original_df, self.further_filter_query_list)
             meta.extend(md)

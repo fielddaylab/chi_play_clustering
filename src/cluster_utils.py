@@ -19,7 +19,7 @@ sys.path.append('.')
 import Notebooks.Clustering.cluster_utils as cu
 
 """
-
+import os
 from zipfile import ZipFile
 import pandas as pd
 import urllib.request
@@ -30,6 +30,7 @@ from collections import namedtuple
 import numpy as np
 from scipy import stats
 from typing import Optional, List, Iterable
+from matplotlib import pyplot as plt
 
 
 
@@ -661,7 +662,7 @@ def reduce_feats(df, featlist):
     return df[featlist].copy(), [f'*arg* finalfeats = {featlist}']
 
 
-def reduce_outliers(df, z_thresh, show_graphs=True):
+def reduce_outliers(df, z_thresh, show_graphs=True, outpath=None):
     """
     Takes in df and z_thresh, shows box plots, and outputs graph with points of zscore>z_thresh removed.
     Does not always work properly. Does not seem to tolerate NaNs.
@@ -674,17 +675,30 @@ def reduce_outliers(df, z_thresh, show_graphs=True):
     meta = []
     meta.append(f"Original Num Rows: {len(df)}")
     meta.append(f"*arg* zthresh = {z_thresh}")
+    title = f'Raw Boxplot Original Data n={len(df)}'
+    df.plot(kind='box', title=title, figsize=(20, 5))
+    if outpath:
+        savepath = os.path.join(outpath, f'{title}.png')
+        plt.savefig(savepath)
+    plt.close()
+
     if z_thresh is None:
         return df, meta
-    df.plot(kind='box', title=f'Original Data n={len(df)}', figsize=(20, 5))
+
+
     z = np.abs(stats.zscore(df))
     no_outlier_df = df[(z < z_thresh).all(axis=1)]
     meta.append(f'Removed points with abs(ZScore) >= {z_thresh}. Reduced num rows: {len(no_outlier_df)}')
-    no_outlier_df.plot(kind='box', title=f'ZScore < {z_thresh} n={len(no_outlier_df)}', figsize=(20, 5))
+    title = f'Raw Boxplot ZScore < {z_thresh} n={len(no_outlier_df)}'
+    no_outlier_df.plot(kind='box', title=title, figsize=(20, 5))
+    if outpath:
+        savepath = os.path.join(outpath, f'{title}.png')
+        plt.savefig(savepath)
+    plt.close()
     return no_outlier_df, meta
 
 
-def full_filter(get_df_func, options) -> (pd.DataFrame, List[str]):
+def full_filter(get_df_func, options, outpath) -> (pd.DataFrame, List[str]):
     """
     Takes in a df_getter_function and options group.
     Outputs the filtered df and the meta.
@@ -708,10 +722,7 @@ def full_filter(get_df_func, options) -> (pd.DataFrame, List[str]):
         assert False
     reduced_df, reduced_meta = reduce_feats(aggregate_df, options.finalfeats)
     reduced_df = reduced_df.fillna(0) # hack while NaNs are popping up in aggregate df or newfeatdf TODO: Fix this. It never used to be an issue.
-    if options.zthresh is not None:
-        final_df, outlier_meta = reduce_outliers(reduced_df, options.zthresh)
-    else:
-        final_df, outlier_meta = reduced_df, []
+    final_df, outlier_meta = reduce_outliers(reduced_df, options.zthresh, outpath=outpath)
     final_meta = import_meta + filter_meta + new_feat_meta + aggregate_meta + reduced_meta + outlier_meta
     return final_df, final_meta
 
