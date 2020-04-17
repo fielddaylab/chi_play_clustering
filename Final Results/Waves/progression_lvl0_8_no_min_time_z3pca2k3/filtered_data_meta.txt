@@ -1,0 +1,14 @@
+Metadata:
+Import from fhttps://opengamedata.fielddaylab.wisc.edu/data/WAVES/WAVES_20191201_to_20191231_de09c18_proc.zip
+Import from fhttps://opengamedata.fielddaylab.wisc.edu/data/WAVES/WAVES_20200101_to_20200131_de09c18_proc.zip
+*arg* filter_args = {'query_list': ['QA1_questionCorrect==QA1_questionCorrect'], 'one_query': False, 'fillna': 0, 'verbose': False}
+Query: Intial Shape, output_shape: (18284, 1073)
+Query: QA1_questionCorrect==QA1_questionCorrect, output_shape: (5980, 1073)
+Filled NaN with 0
+*arg* new_feat_args = {'verbose': False}
+*arg* lvlfeats = ['completed', 'totalLevelTime']
+*arg* lvlrange = range(0, 35)
+*arg* finalfeats = ['sum_lvl_0_to_34_completed', 'sum_lvl_0_to_34_totalLevelTime', 'sum_random_complete_count']
+Original Num Rows: 5980
+*arg* zthresh = 3
+Removed points with abs(ZScore) >= 3. Reduced num rows: 5700

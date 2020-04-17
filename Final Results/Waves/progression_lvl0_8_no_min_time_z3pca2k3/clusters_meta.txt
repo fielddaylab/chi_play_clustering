@@ -1,0 +1,26 @@
+Metadata:
+Import from fhttps://opengamedata.fielddaylab.wisc.edu/data/WAVES/WAVES_20191201_to_20191231_de09c18_proc.zip
+Import from fhttps://opengamedata.fielddaylab.wisc.edu/data/WAVES/WAVES_20200101_to_20200131_de09c18_proc.zip
+*arg* filter_args = {'query_list': ['QA1_questionCorrect==QA1_questionCorrect'], 'one_query': False, 'fillna': 0, 'verbose': False}
+Query: Intial Shape, output_shape: (18284, 1073)
+Query: QA1_questionCorrect==QA1_questionCorrect, output_shape: (5980, 1073)
+Filled NaN with 0
+*arg* new_feat_args = {'verbose': False}
+*arg* lvlfeats = ['completed', 'totalLevelTime']
+*arg* lvlrange = range(0, 35)
+*arg* finalfeats = ['sum_lvl_0_to_34_completed', 'sum_lvl_0_to_34_totalLevelTime', 'sum_random_complete_count']
+Original Num Rows: 5980
+*arg* zthresh = 3
+Removed points with abs(ZScore) >= 3. Reduced num rows: 5700
+LogTransform using np.long1p
+Scaled with scikitlearn RobustScaler(copy=True, quantile_range=(25.0, 75.0), with_centering=True,
+             with_scaling=True)
+PCA df calculated with scikitlearn PCA(copy=True, iterated_power='auto', n_components=2, random_state=None,
+    svd_solver='auto', tol=0.0, whiten=False)
+Cluster on PCA dims
+Labels calculated via clusterer: KMeans(algorithm='auto', copy_x=True, init='k-means++', max_iter=300,
+       n_clusters=2, n_init=10, n_jobs=None, precompute_distances='auto',
+       random_state=None, tol=0.0001, verbose=0)
+Labels calculated via clusterer: KMeans(algorithm='auto', copy_x=True, init='k-means++', max_iter=300,
+       n_clusters=3, n_init=10, n_jobs=None, precompute_distances='auto',
+       random_state=None, tol=0.0001, verbose=0)
