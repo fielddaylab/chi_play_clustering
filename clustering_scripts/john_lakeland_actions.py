@@ -12,9 +12,9 @@ if __name__ == '__main__':
     output_foler = settings.OUTPUT_DIR
     df_getter = cu.getLakelandDecJanLogDF
 
-    w = Workflow(filter_options=filter_options)
+    w = Workflow(filter_options=filter_options, nested_folder_output=False)
     w.pca_dimension_count = 2
-    w.clustering_count = 6
+    w.clustering_counts = [6]
     w.RunWorkflow(get_df_func=df_getter)
 
 

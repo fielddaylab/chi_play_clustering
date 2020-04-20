@@ -15,7 +15,6 @@ if __name__ == '__main__':
 
     w = Workflow(filter_options=filter_options)
     w.further_filter_query_list = [f'sum_lvl_0_to_34_totalLevelTime < {50*60}']  # 50 mins
-    w.pca_dimension_count = 2
-    for k in range(4,8):
-        w.clustering_count = k
-        w.RunWorkflow(get_df_func=df_getter)
+    w.clustering_counts = range(3,8)
+    w.verbose = True
+    w.RunWorkflow(get_df_func=df_getter)

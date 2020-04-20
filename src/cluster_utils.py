@@ -235,7 +235,7 @@ def get_waves_default_filter(through_QA1=False, through_QA3=False):
 
     return query_list
 
-def get_crystal_default_filter(end_level = None, through_QA=None):
+def get_crystal_default_filter(end_level = None, through_QA=None, filter_out_finalScore_bugs_range=None):
     query_list = []
     if end_level is not None:
         end_level = min(8,end_level)
@@ -245,6 +245,13 @@ def get_crystal_default_filter(end_level = None, through_QA=None):
     if through_QA is not None:
         through_QA = min(through_QA, 2)
         query_list.append(f'QA{through_QA}_questionCorrect==QA{through_QA}_questionCorrect')
+
+    if filter_out_finalScore_bugs_range is not None:
+        per_level_bool = lambda n: f'(lvl{n}_finalScore != lvl{n}_finalScore) | ' \
+                                   f'(lvl{n}_completesCount != lvl{n}_completesCount) | ' \
+                                   f'~((lvl{n}_finalScore == 0) & (lvl{n}_completesCount > 0))'
+        query_list.extend([f'({per_level_bool(n)})' for n in filter_out_finalScore_bugs_range])
+
     return query_list
 
 

@@ -274,7 +274,18 @@ class Workflow:
             plt.savefig(savepath)
             plt.close()
 
-    def radarCharts(self, df, labels, save=True):
+    @staticmethod
+    def radar_from_cluster_csv(csv_path, optionsgroup, savedir=None ):
+        print('here')
+        w = Workflow(filter_options=optionsgroup)
+        index_col = [0,1] if optionsgroup.game.upper() == 'LAKELAND' else 0
+        df = pd.read_csv(csv_path, index_col=index_col, comment='#')
+        labels = list(df['label'].to_numpy())
+        df = df.drop('label', axis=1)
+        w.radarCharts(df, labels, savedir=savedir)
+
+    def radarCharts(self, df, labels, save=True, savedir=None):
+        print('radarCharts')
         categories = self.filter_options.finalfeats_readable
         description_df = df.describe()
         summary_df = pd.DataFrame(columns=description_df.columns)
@@ -308,7 +319,7 @@ class Workflow:
             graph_name = tdf.index[i]
             ax.plot(angles, values, color=color, linewidth=2, linestyle='solid')
             ax.fill(angles, values, color=color, alpha=0.4)
-            plt.title(graph_name + f' (n={len(cluster_dict[i])})', size=11, color=color, y=1.1)
+            plt.title(f'Cluster {i} (n={len(cluster_dict[i])})', size=11, color=color, y=1.1)
 
         # number of variable
         for var in ['zscore', '%mean', '%std']:

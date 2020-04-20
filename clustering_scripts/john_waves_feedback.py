@@ -16,5 +16,6 @@ if __name__ == '__main__':
     w = Workflow(filter_options=filter_options)
     w.do_logtransform = False
     w.pca_dimension_count = 2
-    w.clustering_count = 4
+    w.clustering_counts = range(3,8)
+    w.verbose = True
     w.RunWorkflow(get_df_func=df_getter)

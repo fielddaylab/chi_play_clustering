@@ -10,3 +10,4 @@ __pycache__/
 src/settings.py
 /venv
 .ipynb_checkpoints/
+john_temp.ipynb
