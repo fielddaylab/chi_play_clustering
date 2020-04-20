@@ -11,3 +11,5 @@ src/settings.py
 /venv
 .ipynb_checkpoints/
 john_temp.ipynb
+
+john_temp/

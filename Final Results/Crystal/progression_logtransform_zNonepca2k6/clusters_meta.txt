@@ -28,5 +28,5 @@ PCA df calculated with scikitlearn PCA(copy=True, iterated_power='auto', n_compo
     svd_solver='auto', tol=0.0, whiten=False)
 Cluster on PCA dims
 Labels calculated via clusterer: KMeans(algorithm='auto', copy_x=True, init='k-means++', max_iter=300,
-       n_clusters=4, n_init=10, n_jobs=None, precompute_distances='auto',
+       n_clusters=6, n_init=10, n_jobs=None, precompute_distances='auto',
        random_state=None, tol=0.0001, verbose=0)

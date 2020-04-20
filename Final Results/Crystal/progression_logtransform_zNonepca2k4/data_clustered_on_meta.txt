@@ -19,6 +19,8 @@ Filled NaN with 0
 *arg* lvlfeats = ['completesCount', 'finalScore']
 *arg* lvlrange = range(0, 9)
 *arg* finalfeats = ['sessionDurationInSecs', 'sum_lvl_0_to_8_completesCount', 'sum_lvl_0_to_8_finalScore']
+Original Num Rows: 5796
+*arg* zthresh = None
 LogTransform using np.long1p
 Scaled with scikitlearn RobustScaler(copy=True, quantile_range=(25.0, 75.0), with_centering=True,
              with_scaling=True)
