@@ -685,7 +685,7 @@ def reduce_outliers(df, z_thresh, show_graphs=True, outpath=None):
     title = f'Raw Boxplot Original Data n={len(df)}'
     df.plot(kind='box', title=title, figsize=(20, 5))
     if outpath:
-        savepath = os.path.join(outpath, f'{title}.png')
+        savepath = os.path.join(outpath, f'Raw Boxplot Original.png')
         plt.savefig(savepath)
     plt.close()
 
@@ -699,7 +699,7 @@ def reduce_outliers(df, z_thresh, show_graphs=True, outpath=None):
     title = f'Raw Boxplot ZScore < {z_thresh} n={len(no_outlier_df)}'
     no_outlier_df.plot(kind='box', title=title, figsize=(20, 5))
     if outpath:
-        savepath = os.path.join(outpath, f'{title}.png')
+        savepath = os.path.join(outpath, f'Raw Boxplot Zthresh Removed.png')
         plt.savefig(savepath)
     plt.close()
     return no_outlier_df, meta

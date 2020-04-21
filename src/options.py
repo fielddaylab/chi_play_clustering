@@ -100,6 +100,21 @@ class Options:
                                                          3,
                                                          ['bloom', 'farm', 'money', 'population', 'session time']
                                                          )
+
+    lakeland_progression = options('lakeland',
+                                                         'progression',
+                                                         {'query_list': ['debug == 0', 'sess_ActiveEventCount >= 10',
+                                                                         'sessDuration >= 300', '_continue == 0', 'sessDuration <= 2700']},
+                                                         {'avg_tile_hover_lvl_range': None, 'verbose': False},
+                                                         [],
+                                                         range(0, 1),
+                                                         ['count_bloom_achs', 'count_farm_achs',
+                                                          'count_money_achs', 'count_pop_achs',
+                                                          'sessDuration'],
+                                                         None,
+                                                         ['bloom', 'farm', 'money', 'population', 'session time']
+                                                         )
+
     lakeland_feedback_lv01 = options('lakeland',
                                      'feedback_lv01',
                                      {'query_list': ['debug == 0', 'sess_ActiveEventCount >= 10', 'sessDuration >= 300',
